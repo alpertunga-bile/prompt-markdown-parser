@@ -35,7 +35,7 @@ class Functions:
             elif line.find("Negative Prompts") != -1:
                 isPositive = False
             
-            if line.startswith("#") or line == "\n" or line.startswith("---"):
+            if line.startswith("#") or line == "\n" or line.startswith("---") or line == '  \n':
                 continue
 
             if line.startswith("- [ ] ") or line.startswith("- [x] "):
