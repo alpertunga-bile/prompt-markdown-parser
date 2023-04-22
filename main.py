@@ -16,7 +16,7 @@ class Functions:
         print("Done!")
 
     def ParseAndSave(self, promptFile):
-        file = open("tracer.md", "r")
+        file = open(promptFile, "r")
         lines = file.readlines()
         file.close()
 
