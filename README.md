@@ -1,6 +1,6 @@
 # prompt-markdown-parser
 
-- Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts. Prompts can be diffult to organize. So with this GUI based solution you can easily structure your prompts with markdown file format and get positive and negative prompts as seperate txt files.
+- Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files.
 
 ## Requirements
 - Tested with Python 3.10.6 and used Tkinter for GUI. If Tkinter is installed it will not be a problem.
@@ -11,7 +11,7 @@
 - Start GUI with  with ```python main.py``` command
 - Press ***Select Prompt Files*** button. It is going to show a window to let you select your Markdown files. You can choose multiple files.
 - After selecting press ***Parse And Save*** and it's done. You can find your text files in the folder where are your selected Markdown files. You can see that it seperates negative and positive prompts with ***_negative*** and ***_positive*** names.
-- DO NOT EDIT ***# Positive Prompts*** and ***# Negative Prompts*** parts. These are used to seperate prompts.
+- DO NOT EDIT ***Positive Prompts*** and ***Negative Prompts*** strings. These are used to seperate prompts. You can add # symbol but do not edit the strings.
 
 ### Example
 - You can access the [Markdown file](https://github.com/alpertunga-bile/prompt-markdown-parser/blob/master/example/example.md) that is used for the below image.
