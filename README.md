@@ -14,7 +14,7 @@
 - DO NOT EDIT ***# Positive Prompts*** and ***# Negative Prompts*** parts. These are used to seperate prompts.
 
 ### Example
-- You can access the Markdown file that is used for the below image.
+- You can access the [Markdown file](https://github.com/alpertunga-bile/prompt-markdown-parser/blob/master/example/example.md) that is used for the below image.
 - Image is upscaled with [AIUpscaleGUI](https://github.com/alpertunga-bile/AIUpscaleGUI) project.
 
 ![00069-3749032177_out](https://user-images.githubusercontent.com/76731692/233834377-0b2b717b-5301-4672-93d4-0d8a56d68a88.png)
