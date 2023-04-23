@@ -3,7 +3,12 @@
 - Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files.
 
 ## Requirements
-- Tested with Python 3.10.6 and used Tkinter for GUI. If Tkinter is installed it will not be a problem.
+- Tested with Python 3.10.6 and used Tkinter for GUI. As a note for Python 3.10.6 version Tkinter comes as default library. You can easily test it with these commands:
+
+### Check Tkinter Module
+- From command line enter ```python``` command and press Enter button.
+- Write ```import tkinter``` command and press Enter button. If there are no errors. You are ready to go.
+- Write ```exit()``` command and press Enter button to exit.
 
 ## Usage
 - Clone the repository with ```git clone https://github.com/alpertunga-bile/prompt-markdown-parser.git``` command
