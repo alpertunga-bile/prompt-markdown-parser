@@ -10,8 +10,8 @@
 - Get into folder with ```cd prompt-markdown-parser``` command
 - Start GUI with  with ```python main.py``` command
 - Press ***Select Prompt Files*** button. It is going to show a window to let you select your Markdown files. You can choose multiple files.
-- After selecting press ***Parse And Save*** and it's done. You can find your text files in the folder where are your selected Markdown files. You can see that it seperates negative and positive prompts with ***_negative*** and ***_positive*** names.
-- DO NOT EDIT ***Positive Prompts*** and ***Negative Prompts*** strings. These are used to seperate prompts. You can add # symbol but do not edit the strings.
+- After the selection press ***Parse And Save*** button and it's done. You can find your text files in the folder where are your selected Markdown files. You can see that it seperates negative and positive prompts with ***_negative*** and ***_positive*** names.
+- DO NOT EDIT ***Positive Prompts*** and ***Negative Prompts*** strings in Markdown files. These are used to seperate prompts. You can add # symbol but do not edit the strings.
 - DO NOT ADD comma "," at the end of your rows. Parser is adding for you. 
 
 ### Example
