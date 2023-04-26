@@ -1,6 +1,7 @@
 from tkinter import filedialog
 from tkinter import messagebox
 import os
+from glob import glob
 
 class Parser:
     promptFiles = None
@@ -14,6 +15,12 @@ class Parser:
             self.promptFiles = filedialog.askopenfilenames(initialdir=os.getcwd())
         text = "1 file is selected" if len(self.promptFiles) == 1 else f"{len(self.promptFiles)} files are selected"
         self.directoryLabel.config(text=text)
+
+    def Fast(self):
+        fastPath = os.path.join(os.getcwd(), "test")
+        self.promptFiles = glob(f"{fastPath}\*.md")
+        self.Run()
+        exit(0)
 
     def Run(self):       
         for promptFile in self.promptFiles:

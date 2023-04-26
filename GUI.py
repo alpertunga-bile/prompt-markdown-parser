@@ -12,7 +12,15 @@ class GUI:
         self.window = tk.Tk()
         self.window.geometry("600x120")
 
-        tempPath = os.path.join(os.getcwd(), "test.md")
+        tempPath = os.path.join(os.getcwd(), "test")
+
+        initializeButton = tk.Button(
+            master=self.window,
+            text="Fast Parse",
+            command=self.parser.Fast
+        )
+
+        initializeButton.pack()
 
         self.startFrame = tk.Frame()
 
