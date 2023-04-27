@@ -11,6 +11,7 @@
 - Parsing and translation is done in threads so no freezing when parsing.
 
 ## Requirements
+- Tested in Windows OS environment.
 - Venv, deep-translator, customtkinter and Tkinter packages are used.
 - Tested with Python 3.10.6. As a note for Python 3.10.6 version Tkinter comes as default. You can easily test it with these commands:
 
