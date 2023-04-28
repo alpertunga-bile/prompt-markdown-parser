@@ -8,7 +8,7 @@
 
 ## Updates
 ### Update Date : 28/04/2023
-- Virtual environment is using use bat files to activate and deactivate.
+- Virtual environment is using bat files to activate and deactivate.
 - GUI appearance can be changed between light and dark mode.
 - New translators are added but Google is the only one working without errors.
 
