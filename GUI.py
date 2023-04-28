@@ -1,14 +1,16 @@
 import tkinter as tk
 import customtkinter as ctk
-
 import threading
-from Parser import Parser
 import os
+from PIL import Image
+
+from Parser import Parser
 
 class GUI:
     window = None
     startFrame = None
     initializeFrame = None
+    debugLabel = None
     parser = Parser()
 
     def __init__(self):
@@ -17,10 +19,29 @@ class GUI:
 
         self.window = ctk.CTk()
         self.window.title("Markdown Prompt Parser")
-        self.window.geometry("600x350")
+        self.window.geometry("600x400")
+
+        iconImage = ctk.CTkImage(light_image=Image.open("icons/light_icon.png"),
+                                dark_image=Image.open("icons/dark_icon.png"),
+                                size=(30, 30))
+
+        """
+        self.debugLabel = ctk.CTkLabel(self.window, text="")
+        self.debugLabel.pack()
+        """
+
+        appearanceChangeButton = ctk.CTkButton(
+            self.window,
+            width=30,
+            height=30,
+            image=iconImage,
+            text="",
+            fg_color="gray",
+            command=self.ChangeAppearance
+        )
+        appearanceChangeButton.pack(side=ctk.TOP, anchor=ctk.NW)
 
         self.parser.translateValue = tk.IntVar()
-
         translateCheckButton = ctk.CTkCheckBox(
             master=self.window,
             text='Translate Prompts',
@@ -91,6 +112,12 @@ class GUI:
     def ParseAllFiles(self):
         self.Refresh()
         threading.Thread(target=self.parser.ParseAllFiles).start()
+
+    def ChangeAppearance(self):
+        if ctk.get_appearance_mode() == "Dark":
+            ctk.set_appearance_mode("light")
+        else:
+            ctk.set_appearance_mode("dark")
     
     def Loop(self):
         self.window.mainloop()
