@@ -7,6 +7,11 @@
 - Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files.
 
 ## Updates
+### Update Date : 28/04/2023
+- Virtual environment is using use bat files to activate and deactivate.
+- GUI appearance can be changed between light and dark mode.
+- New translators are added but Google is the only one working without errors.
+
 ### Update Date : 27/04/2023
 - Translator is added with deep-translator
 - Modern GUI style is added with customtkinter
