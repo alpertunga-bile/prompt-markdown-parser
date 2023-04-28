@@ -132,7 +132,8 @@ class Parser:
         line = line.strip()
 
         """
-        translation progress is done line by line because summed string's length will exceed the character limit of translator
+        translation progress is done line by line because summed string's length will exceed the character limit of the translator
+        and in experiments it's seen that translator can not translate the non English word from the whole string
         """
         if self.isTranslate:
             if self.translatorName.get() == 'Google':
