@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from PIL import Image
+
 from ParseTab import ParseTab
 from DatasetTab import DatasetTab
 from TrainTab import TrainTab

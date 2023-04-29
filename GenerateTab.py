@@ -118,6 +118,7 @@ class GenerateTab:
         threading.Thread(target=self.Generate).start()
 
     def Generate(self):
+        self.generatorTextbox.delete("0.0", "end")
         seed = "mature woman" if self.seedEntry.get() == "" else self.seedEntry.get()
         minLength = 10 if self.minLengthEntry.get() == "" else int(self.minLengthEntry.get())
         maxLength = 50 if self.maxLengthEntry.get() == "" else int(self.maxLengthEntry.get())
