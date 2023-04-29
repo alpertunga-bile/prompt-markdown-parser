@@ -110,7 +110,7 @@ class GenerateTab:
         generateButton.pack()
 
     def ChooseGenerator(self):
-        self.generatorPath = filedialog.askdirectory(initialdir=os.getcwd, mustexist=True)
+        self.generatorPath = filedialog.askdirectory(initialdir=os.getcwd(), mustexist=True)
         self.generatorPathLabel.configure(text=self.generatorPath)
 
     def StartGenerate(self):
@@ -142,16 +142,14 @@ class GenerateTab:
         happy_gen = HappyGeneration(upperModelName, modelName, load_path=self.generatorPath)
         result = happy_gen.generate_text(seed, generatorArgs)
 
-        newSeed = seed + result.text
         if recurseLevel == 0:
-            self.generatorTextbox.insert("0.0", newSeed)
+            self.generatorTextbox.insert("0.0", result.text)
             return
 
         for _ in range(0, recurseLevel):
-            result = happy_gen.generate_text(newSeed, generatorArgs)
-            newSeed += result.text
+            result = happy_gen.generate_text(result.text, generatorArgs)
 
-        self.generatorTextbox.insert("0.0", newSeed)
+        self.generatorTextbox.insert("0.0", result.text)
     
     def SliderEvent(self, value):
         self.recursiveLabel.configure(text=f"Recursive Level : {int(self.recursiveSlider.get())}")
