@@ -14,6 +14,9 @@ if __name__ == "__main__":
         result = call(venvCommand, shell=True, stdout=DEVNULL)
         _ = print("Virtual environment is created") if result == 0 else print("Error")
 
+    if os.path.exists("dataset") is False:
+        os.mkdir("dataset")
+
     print("Starting GUI ...")
     guiCommand = ".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\python.exe main.py"
     result = call(guiCommand, shell=True, stdout=DEVNULL)
