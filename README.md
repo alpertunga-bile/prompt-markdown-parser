@@ -4,11 +4,12 @@
   <img src=https://user-images.githubusercontent.com/76731692/234883310-86fceaa3-45b3-4870-83ca-3642b98ccf20.gif alt="animated" />
 </p>
 
-- Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files.
+- Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files. 
+- Now you can create datasets, train your GPT model, evaluate your model and generate prompts. GUI is divided into 5 tabs.
 
 ## Updates
 ### Update Date : 29/04/2023
-- GUI is divided into tabs such as parse, dataset, train, evaluate, generate
+- GUI is divided into tabs such as parse, dataset, train, evaluate, generate.
 - Parse tab has the functionality of the parser which is translating prompts and parsing Markdown files.
 - In the dataset tab, you can create prompt datasets to use in other tabs.
 - In the train tab, you can train your prompt transformer such as GPT2.
@@ -41,7 +42,7 @@
 ### Parser Tab
 - Clone the repository with ```git clone https://github.com/alpertunga-bile/prompt-markdown-parser.git``` command.
 - Get into folder with ```cd prompt-markdown-parser``` command.
-- Start the application with ```python start.py``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies (deep-translator and customtkinter) and start the application. After the first setup, it is just going to start the GUI application.
+- Start the application with ```python start.py``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the GUI application. 
 - You can choose ***Translate Prompts*** checkbox to translate your prompts to English. You can write prompts in a mixture of English and your native language. GoogleTranslator is used for translation. This checkbox works with ***Parse All Files In 'prompts' Folder*** and ***Parse And Save*** functionalities.
 - ***Parse All Files In 'prompts' Folder*** button is getting all markdown files under 'prompts' folder which is located in repo directory and parse and save them.
 - ***Select Prompt Files*** button is going to show a window to let you select your Markdown files. You can choose multiple files.
@@ -49,6 +50,7 @@
 - DO NOT EDIT ***Positive Prompts*** and ***Negative Prompts*** strings in Markdown files. These are used to seperate prompts. You can add or reduce # symbol but do not edit the strings.
 - DO NOT ADD comma "," at the end of your rows. Parser is adding for you.
 ### Dataset Tab
+- Save prompt links in a txt file. Just select image from CivitAi and copy and paste its link into a txt file. 
 - Choose your link dataset which is provided in txt file.
 - Write positive and negative filenames as you want to name them.
 - Click ***Create Dataset*** button and wait. You can watch the progress with progressbar in GUI and in terminal.
