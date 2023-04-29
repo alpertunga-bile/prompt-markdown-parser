@@ -5,7 +5,7 @@
 </p>
 
 - Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files. 
-- Now you can create datasets, train your GPT model, evaluate your model and generate prompts. GUI is divided into 5 tabs.
+- Now you can create datasets, train your prompt generator model, evaluate your model and generate prompts with it.
 
 ## Updates
 ### Update Date : 29/04/2023
