@@ -141,14 +141,16 @@ class GenerateTab:
         happy_gen = HappyGeneration(upperModelName, modelName, load_path=self.generatorPath)
         result = happy_gen.generate_text(seed, generatorArgs)
 
+        newSeed = seed + result.text
         if recurseLevel == 0:
-            self.generatorTextbox.insert("0.0", result.text)
+            self.generatorTextbox.insert("0.0", newSeed)
             return
 
         for _ in range(0, recurseLevel):
-            result = happy_gen.generate_text(result.text, generatorArgs)
+            result = happy_gen.generate_text(newSeed, generatorArgs)
+            newSeed += result.text
 
-        self.generatorTextbox.insert("0.0", result.text)
+        self.generatorTextbox.insert("0.0", newSeed)
     
     def SliderEvent(self, value):
         self.recursiveLabel.configure(text=f"Recursive Level : {int(self.recursiveSlider.get())}")
