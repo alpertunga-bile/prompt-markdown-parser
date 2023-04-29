@@ -164,3 +164,4 @@ prompts/
 dataset/env/
 dataset/*.txt
 dataset/*.log
+dataset/female_positive_gpt2-75_model/
