@@ -85,6 +85,8 @@
 
 ## Generator Examples
 - Some typo fixes are done in generated prompts.
+- female_positive_gpt2-75_model is used for generator examples. Used model can be found [here](https://drive.google.com/drive/folders/1c21kMH6FTaia5C8239okL3Q0wJnnWc1N?usp=share_link).
+- Model is trained with 75 epochs and 1 batch size.
 
 ### Example 1
 - Min Length : 10
