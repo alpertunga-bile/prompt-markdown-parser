@@ -84,13 +84,23 @@
 ![00069-3749032177_out](https://user-images.githubusercontent.com/76731692/233834377-0b2b717b-5301-4672-93d4-0d8a56d68a88.png)
 
 ## Generator Examples
+- Some typo fixes are done in generated prompts.
+
 ### Example 1
+- Min Length : 10
+- Max Length : 50
+- Features are off
+- Recursive Level : 0
 - Seed : mature woman, mechanical halo
 - Generated Prompt : mature woman, mechanical halo, (blue hair:1.2), intricate, high detail, sharp focus, dramatic, beautiful girl, RAW photo, 8k uhd, film grain, caustics, subsurface scattering, reflections, (cowboy shot:1)
 
 ![00000-1602665147](https://user-images.githubusercontent.com/76731692/235329481-ae4017cd-4a9a-4d26-8993-a5515a43bdc9.jpg)
 
 ### Example 2
+- Min Length : 10
+- Max Length : 50
+- Features are off
+- Recursive Level : 1
 - Seed : goddess
 - Generated Prompt : goddess, (intricate detailed skin texture:1.2), (electric spark, broken machine:1.1), (machine body:1.2), looking at the viewer, (smart sharpen:1.2), medium breasts, (Ghost in the Shell), depth of field, gradient background, backlit, rim lighting, dramatic lighting, ambient occlusion, volumetric lighting, professional studio lighting, closed mouth, insanely detailed,, ((masterpiece)), absurdres, HDR
 
