@@ -1,6 +1,6 @@
 # prompt-markdown-parser
 
-[Updates](https://github.com/alpertunga-bile/prompt-markdown-parser/edit/master/README.md#updates) | [Requirements](https://github.com/alpertunga-bile/prompt-markdown-parser/edit/master/README.md#requirements) | [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser/edit/master/README.md#usage) | [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser/edit/master/README.md#example)
+[Updates](https://github.com/alpertunga-bile/prompt-markdown-parser#updates) | [Requirements](https://github.com/alpertunga-bile/prompt-markdown-parser#requirements) | [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser#usage) | [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#example)
 
 <p align="center">
   <img src=https://user-images.githubusercontent.com/76731692/234883310-86fceaa3-45b3-4870-83ca-3642b98ccf20.gif alt="animated" />
