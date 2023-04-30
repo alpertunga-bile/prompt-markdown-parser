@@ -89,6 +89,7 @@
 - Model is trained with 75 epochs and 1 batch size.
 
 ### Example 1
+- Model Name : gpt2
 - Min Length : 10
 - Max Length : 50
 - Features are off
@@ -99,6 +100,7 @@
 ![00000-1602665147](https://user-images.githubusercontent.com/76731692/235329481-ae4017cd-4a9a-4d26-8993-a5515a43bdc9.jpg)
 
 ### Example 2
+- Model Name : gpt2
 - Min Length : 10
 - Max Length : 50
 - Features are off
