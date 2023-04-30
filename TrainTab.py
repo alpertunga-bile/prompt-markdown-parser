@@ -26,13 +26,13 @@ class TrainTab:
         self.variableFrame = ctk.CTkFrame(master=self.thisTab)
 
         modelNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Name")
-        self.modelNameEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Model Name")
+        self.modelNameEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
         epochsLabel = ctk.CTkLabel(master=self.variableFrame, text="Epochs")
-        self.epochsEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Epochs")
+        self.epochsEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="10")
         batchSizeLabel = ctk.CTkLabel(master=self.variableFrame, text="Batch Size")
-        self.batchEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Batch Size")
+        self.batchEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="1")
         modelFolderLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Folder Name")
-        self.modelFolderEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Model Folder Name", width=160)
+        self.modelFolderEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. positive_model", width=160)
 
         self.datasetLabel = ctk.CTkLabel(master=self.variableFrame, text=self.trainName)
         

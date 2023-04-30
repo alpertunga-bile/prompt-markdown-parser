@@ -24,7 +24,7 @@ class EvaluateTab:
         self.variableFrame = ctk.CTkFrame(master=self.thisTab)
 
         modelNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Name")
-        self.modelNameEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Model Name")
+        self.modelNameEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
 
         self.datasetLabel = ctk.CTkLabel(master=self.variableFrame, text=self.databaseName)
 

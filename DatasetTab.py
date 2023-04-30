@@ -37,9 +37,9 @@ class DatasetTab:
         )
 
         positiveNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Dataset Positive Filename")
-        self.positiveFileEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Filename")
+        self.positiveFileEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. positive")
         negativeNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Dataset Negative Filename")
-        self.negativeFileEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Filename")
+        self.negativeFileEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. negative")
 
         self.datasetLinkLabel.grid(column=0, row=0, padx=(0, 50), ipady=5, pady=10)
         selectDatasetButton.grid(column=1, row=0)

@@ -31,7 +31,7 @@ class GenerateTab:
         self.variableFrame = ctk.CTkFrame(self.thisTab)
 
         generatorNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Name")
-        self.generatorEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Model Name")
+        self.generatorEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
         self.generatorPathLabel = ctk.CTkLabel(master=self.variableFrame, text=self.generatorPath)
         
         chooseGenerator = ctk.CTkButton(
@@ -64,7 +64,7 @@ class GenerateTab:
             offvalue=0
         )
 
-        self.seedEntry = ctk.CTkEntry(master=self.thisTab, placeholder_text="Enter Your Seed", width=400)
+        self.seedEntry = ctk.CTkEntry(master=self.thisTab, placeholder_text="Enter Your Seed e.g. goddess", width=400)
 
         self.generatorTextbox = ctk.CTkTextbox(
             master=self.thisTab,
