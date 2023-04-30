@@ -3,7 +3,7 @@ from tkinter import filedialog
 import customtkinter as ctk
 import threading
 import re
-import tqdm
+from tqdm import tqdm
 from bs4 import BeautifulSoup as bs
 import requests
 
@@ -108,6 +108,26 @@ class DatasetTab:
         completedLink = 0
         totalLinks = len(promptLinks)
 
+        if positiveFilename.endswith(".txt") is False:
+            positiveFilename = f"dataset/{positiveFilename}.txt"
+        else:
+            positiveFilename = f"dataset/{positiveFilename}"
+        
+        if negativeFilename.endswith(".txt") is False:
+            negativeFilename = f"dataset/{negativeFilename}.txt"
+        else:
+            negativeFilename = f"dataset/{negativeFilename}"
+
+        if os.path.exists(positiveFilename) == True:
+            positiveFile = open(positiveFilename, 'r')
+            positivePrompts = positiveFile.readlines()
+            positiveFile.close()
+            
+        if os.path.exists(negativeFilename) == True:
+            negativeFile = open(negativeFilename, 'r')
+            negativePrompts = negativeFile.readlines()
+            negativeFile.close()
+
         for promptLink in tqdm(promptLinks, desc="Getting and Writing Prompts"):
             info = requests.get(promptLink).text
             soup = bs(info, "lxml")
@@ -130,22 +150,18 @@ class DatasetTab:
         positivePrompts = [*set(positivePrompts)]
         negativePrompts = [*set(negativePrompts)]
 
-        if positiveFilename.endswith(".txt") is False:
-            positiveFilename = f"dataset/{positiveFilename}.txt"
-        else:
-            positiveFilename = f"dataset/{positiveFilename}"
-        
-        if negativeFilename.endswith(".txt") is False:
-            negativeFilename = f"dataset/{negativeFilename}.txt"
-        else:
-            negativeFilename = f"dataset/{negativeFilename}"
+        try:
+            positivePrompts.remove("\n")
+            negativePrompts.remove("\n")
+        except:
+            print("Allrighto")
 
-        positiveFile = open(positiveFilename, 'a')
-        negativeFile = open(negativeFilename, 'a')
+        positiveFile = open(positiveFilename, 'w')
+        negativeFile = open(negativeFilename, 'w')
 
         positiveFile.writelines(positivePrompts)
         negativeFile.writelines(negativePrompts)
-    
+
         positiveFile.close()
         negativeFile.close()
 
