@@ -15,7 +15,7 @@ class Startup:
             venvCommand += "source /venv/bin/activate && "
             venvCommand += "pip3 install deep-translator customtkinter Pillow beautifulsoup4 requests tqdm lxml happytransformer && "
             venvCommand += "pip3 uninstall torch --yes && "
-            venvCommand += "pip3 torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117 && "
+            venvCommand += "pip3 install torch torchvision torchaudio && "
             venvCommand += "deactivate"
         elif self.osName == 'Windows':
             venvCommand = "py -m venv venv && "
