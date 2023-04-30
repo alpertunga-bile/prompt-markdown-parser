@@ -41,10 +41,10 @@ class GenerateTab:
         )
 
         minLengthLabel = ctk.CTkLabel(master=self.variableFrame, text="Minimum number of generated tokens")
-        self.minLengthEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Min Length")
+        self.minLengthEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="10")
 
         maxLengthLabel = ctk.CTkLabel(master=self.variableFrame, text="Maximum number of generated tokens")
-        self.maxLengthEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="Enter Max Length")
+        self.maxLengthEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="50")
 
         self.doSampleIntVar = IntVar()
         self.doSampleCheckbox = ctk.CTkCheckBox(
@@ -68,7 +68,7 @@ class GenerateTab:
 
         self.generatorTextbox = ctk.CTkTextbox(
             master=self.thisTab,
-            width=400,
+            width=500,
             height=200
         )
 
@@ -124,7 +124,7 @@ class GenerateTab:
         maxLength = 50 if self.maxLengthEntry.get() == "" else int(self.maxLengthEntry.get())
         doSample = True if self.doSampleIntVar.get() == 1 else False
         earlyStopping = True if self.earlyStoppingCheckboxIntVar.get() == 1 else False
-        recurseLevel = int(self.recursiveSlider.get())
+        recursiveLevel = int(self.recursiveSlider.get())
 
         generatorArgs = GENSettings(
             min_length=minLength,
@@ -142,14 +142,13 @@ class GenerateTab:
         happy_gen = HappyGeneration(upperModelName, modelName, load_path=self.generatorPath)
         result = happy_gen.generate_text(seed, generatorArgs)
 
-        if recurseLevel == 0:
-            self.generatorTextbox.insert("0.0", result.text)
-            return
+        newSeed = seed + result.text
+        if recursiveLevel != 0:
+            for _ in range(0, recursiveLevel):
+                result = happy_gen.generate_text(newSeed, generatorArgs)
+                newSeed += result.text
 
-        for _ in range(0, recurseLevel):
-            result = happy_gen.generate_text(result.text, generatorArgs)
-
-        self.generatorTextbox.insert("0.0", result.text)
+        self.generatorTextbox.insert("0.0", newSeed)
     
     def SliderEvent(self, value):
         self.recursiveLabel.configure(text=f"Recursive Level : {int(self.recursiveSlider.get())}")
