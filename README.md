@@ -10,6 +10,15 @@
 - Now you can create datasets, train your prompt generator model, evaluate your model and generate prompts with it.
 
 # Updates
+## Update Date : 01/05/2023
+- SelfRecursive algorithm is added.
+
+## Update Date : 30/04/2023
+- Adding datasets to previous datasets functionality is added
+- Removing duplicates from datasets when adding new data functionality is added
+- New models are trained and added to Google Drive link.
+- Startup class is added. Automation commands are added for Linux environment.
+
 ## Update Date : 29/04/2023
 - GUI is divided into tabs such as parse, dataset, train, evaluate, generate.
 - Parse tab has the functionality of the parser which is translating prompts and parsing Markdown files.
