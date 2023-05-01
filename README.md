@@ -63,10 +63,10 @@
 - Write ```exit()``` command and press Enter button to exit.
 
 # Usage
-## Parser Tab
 - Clone the repository with ```git clone https://github.com/alpertunga-bile/prompt-markdown-parser.git``` command.
 - Get into folder with ```cd prompt-markdown-parser``` command.
-- Start the application with ```python start.py``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the GUI application. 
+- Start the application with ```python start.py``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the GUI application.
+## Parser Tab
 - You can choose ***Translate Prompts*** checkbox to translate your prompts to English. You can write prompts in a mixture of English and your native language. GoogleTranslator is used for translation. This checkbox works with ***Parse All Files In 'prompts' Folder*** and ***Parse And Save*** functionalities.
 - ***Parse All Files In 'prompts' Folder*** button is getting all markdown files under 'prompts' folder which is located in repo directory and parse and save them.
 - ***Select Prompt Files*** button is going to show a window to let you select your Markdown files. You can choose multiple files.
@@ -111,7 +111,7 @@
 ![00069-3749032177_out](https://user-images.githubusercontent.com/76731692/233834377-0b2b717b-5301-4672-93d4-0d8a56d68a88.png)
 
 ## Generator Examples
-- Some typo fixes are done in generated prompts.
+- Some typo fixes are done for the generated prompts.
 - female_positive_gpt2-75_model is used for generator examples. Used model can be found [here](https://drive.google.com/drive/folders/1c21kMH6FTaia5C8239okL3Q0wJnnWc1N?usp=share_link).
 - Model is trained with 75 epochs and 1 batch size.
 
