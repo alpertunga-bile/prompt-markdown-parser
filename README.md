@@ -121,6 +121,7 @@
 - Max Length : 50
 - Features are off
 - Recursive Level : 0
+- Self Recursive : Off
 - Seed : mature woman, mechanical halo
 - Generated Prompt : mature woman, mechanical halo, (blue hair:1.2), intricate, high detail, sharp focus, dramatic, beautiful girl, RAW photo, 8k uhd, film grain, caustics, subsurface scattering, reflections, (cowboy shot:1)
 
@@ -133,6 +134,7 @@
 - Features are off
 - Recursive Level : 1
 - Seed : goddess
+- Self Recursive : Off
 - Generated Prompt : goddess, (intricate detailed skin texture:1.2), (electric spark, broken machine:1.1), (machine body:1.2), looking at the viewer, (smart sharpen:1.2), medium breasts, (Ghost in the Shell), depth of field, gradient background, backlit, rim lighting, dramatic lighting, ambient occlusion, volumetric lighting, professional studio lighting, closed mouth, insanely detailed,, ((masterpiece)), absurdres, HDR
 
 ![00001-1760621993](https://user-images.githubusercontent.com/76731692/235329508-e33b0d29-c72f-4b12-8e1b-11b35e45dedc.png)
