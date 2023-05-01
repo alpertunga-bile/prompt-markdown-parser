@@ -177,6 +177,7 @@ class GenerateTab:
             for _ in range(0, recursiveLevel):
                 result = happy_gen.generate_text(generatedText, generatorArgs)
                 generatedText = self.Preprocess(result.text)
+            generatedText = self.Preprocess(seed + generatedText)
         else:
             for _ in range(0, recursiveLevel):
                 result = happy_gen.generate_text(generatedText, generatorArgs)

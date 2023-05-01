@@ -12,6 +12,7 @@
 # Updates
 ## Update Date : 01/05/2023
 - SelfRecursive algorithm is added.
+- Preprocess is added for generating tab to get prompt more accurately.
 
 ## Update Date : 30/04/2023
 - Adding datasets to previous datasets functionality is added
@@ -83,7 +84,12 @@
 - Enter max length that model can generate.
 - Tick the checkboxes if you want these features.
 - Set recursive level with slider. It is going to give model the previous result in each step.
+- Select if you want self recursive.
 - Enter your seed and click ***Generate Text*** button and wait for text to be appeared in the textbox.
+### How Recursive Works?
+- Let's say we give 'a, ' as seed and recursive level is 2. I am going to use the same outputs for this example to understand the solution more accurately.
+- With self recursive, let's say generator's output is 'b'. So next seed is going to be 'b', generator's output is 'c'. Final output is 'a, c'. It can be used for generating random outputs.
+- Without self recursive, let's say generator's output is 'b'. So next seed is going to be 'a, b', generator's output is 'a, b, c'. Final output is 'a, b, c'.
 
 # Examples
 ## Parser Example
