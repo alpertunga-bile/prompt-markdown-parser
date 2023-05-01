@@ -1,13 +1,25 @@
 # prompt-markdown-parser
 
-[Updates](https://github.com/alpertunga-bile/prompt-markdown-parser#updates) | [Requirements](https://github.com/alpertunga-bile/prompt-markdown-parser#requirements) | [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser#usage) | [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#examples)
-
 <p align="center">
   <img src=https://user-images.githubusercontent.com/76731692/234883310-86fceaa3-45b3-4870-83ca-3642b98ccf20.gif alt="animated" />
 </p>
 
 - Markdown is a lightweight markup language for creating formatted text using a plain-text editor. You can easily format your texts with Markdown format. Prompts can be difficult to organize. So with this GUI based solution you can easily structure your prompts with Markdown file format and get positive and negative prompts as seperate txt files. 
 - Now you can create datasets, train your prompt generator model, evaluate your model and generate prompts with it.
+
+# Contents
+
+- [Updates](https://github.com/alpertunga-bile/prompt-markdown-parser#updates)
+- [Requirements](https://github.com/alpertunga-bile/prompt-markdown-parser#requirements)
+- [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser#usage)
+    - [Parser Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-tab)
+    - [Dataset Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#dataset-tab)
+    - [Train Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#train-tab)
+    - [Evaluate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-tab)
+    - [Generate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-tab)
+- [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#examples)
+    - [Parser Example](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-example)
+    - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates
 ## Update Date : 01/05/2023
@@ -87,9 +99,9 @@
 - Select if you want self recursive.
 - Enter your seed and click ***Generate Text*** button and wait for text to be appeared in the textbox.
 ### How Recursive Works?
-- Let's say we give 'a, ' as seed and recursive level is 2. I am going to use the same outputs for this example to understand the solution more accurately.
-- With self recursive, let's say generator's output is 'b'. So next seed is going to be 'b', generator's output is 'c'. Final output is 'a, c'. It can be used for generating random outputs.
-- Without self recursive, let's say generator's output is 'b'. So next seed is going to be 'a, b', generator's output is 'a, b, c'. Final output is 'a, b, c'.
+- Let's say we give ```a, ``` as seed and recursive level is 2. I am going to use the same outputs for this example to understand the functionality more accurately.
+- With self recursive, let's say generator's output is ```b```. So next seed is going to be 'b', generator's output is ```c```. Final output is ```a, c```. It can be used for generating random outputs.
+- Without self recursive, let's say generator's output is ```b```. So next seed is going to be ```a, b```, generator's output is ```a, b, c```. Final output is ```a, b, c```. It can be used for more accurate prompts.
 
 # Examples
 ## Parser Example
