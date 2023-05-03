@@ -1,7 +1,8 @@
-import os
-import customtkinter as ctk
-import threading
-from tkinter import filedialog, IntVar
+from os import getcwd
+from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton, CTkCheckBox, CTkTextbox, CTkSlider
+from threading import Thread
+from tkinter import IntVar
+from tkinter.filedialog import askdirectory
 from happytransformer import HappyGeneration, GENSettings
 
 class GenerateTab:
@@ -16,7 +17,7 @@ class GenerateTab:
     doSampleIntVar = None
     earlyStoppingCheckbox = None
     earlyStoppingCheckboxIntVar = None
-    generatorPath = os.getcwd()
+    generatorPath = getcwd()
     generatorPathLabel = None
     generatorEntry = None
     seedEntry = None
@@ -30,26 +31,26 @@ class GenerateTab:
         self.parentWindow = parent
         self.thisTab = tab
 
-        self.variableFrame = ctk.CTkFrame(self.thisTab)
+        self.variableFrame = CTkFrame(self.thisTab)
 
-        generatorNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Name")
-        self.generatorEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
-        self.generatorPathLabel = ctk.CTkLabel(master=self.variableFrame, text=self.generatorPath)
+        generatorNameLabel = CTkLabel(master=self.variableFrame, text="Model Name")
+        self.generatorEntry = CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
+        self.generatorPathLabel = CTkLabel(master=self.variableFrame, text=self.generatorPath)
         
-        chooseGenerator = ctk.CTkButton(
+        chooseGenerator = CTkButton(
             master=self.variableFrame,
             text="Choose Model",
             command=self.ChooseGenerator
         )
 
-        minLengthLabel = ctk.CTkLabel(master=self.variableFrame, text="Minimum number of generated tokens")
-        self.minLengthEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="10")
+        minLengthLabel = CTkLabel(master=self.variableFrame, text="Minimum number of generated tokens")
+        self.minLengthEntry = CTkEntry(master=self.variableFrame, placeholder_text="10")
 
-        maxLengthLabel = ctk.CTkLabel(master=self.variableFrame, text="Maximum number of generated tokens")
-        self.maxLengthEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="50")
+        maxLengthLabel = CTkLabel(master=self.variableFrame, text="Maximum number of generated tokens")
+        self.maxLengthEntry = CTkEntry(master=self.variableFrame, placeholder_text="50")
 
         self.doSampleIntVar = IntVar()
-        self.doSampleCheckbox = ctk.CTkCheckBox(
+        self.doSampleCheckbox = CTkCheckBox(
             master=self.variableFrame,
             text='When checked, picks words based on their conditional probability',
             variable=self.doSampleIntVar,
@@ -58,7 +59,7 @@ class GenerateTab:
         )
 
         self.earlyStoppingCheckboxIntVar = IntVar()
-        self.earlyStoppingCheckbox = ctk.CTkCheckBox(
+        self.earlyStoppingCheckbox = CTkCheckBox(
             master=self.variableFrame,
             text='When checked, generation finishes if the EOS token is reached',
             variable=self.earlyStoppingCheckboxIntVar,
@@ -66,16 +67,16 @@ class GenerateTab:
             offvalue=0
         )
 
-        self.seedEntry = ctk.CTkEntry(master=self.thisTab, placeholder_text="Enter Your Seed e.g. goddess", width=400)
+        self.seedEntry = CTkEntry(master=self.thisTab, placeholder_text="Enter Your Seed e.g. goddess", width=400)
 
-        self.generatorTextbox = ctk.CTkTextbox(
+        self.generatorTextbox = CTkTextbox(
             master=self.thisTab,
             width=500,
             height=200
         )
 
-        self.recursiveLabel = ctk.CTkLabel(master=self.variableFrame, text="Recursive Level : 0")
-        self.recursiveSlider = ctk.CTkSlider(
+        self.recursiveLabel = CTkLabel(master=self.variableFrame, text="Recursive Level : 0")
+        self.recursiveSlider = CTkSlider(
             master=self.variableFrame,
             width=400,
             from_=0,
@@ -86,7 +87,7 @@ class GenerateTab:
         self.recursiveSlider.set(0)
 
         self.selfRecursiveIntVar = IntVar()
-        self.selfRecursiveCheckbox = ctk.CTkCheckBox(
+        self.selfRecursiveCheckbox = CTkCheckBox(
             master=self.thisTab,
             text="Self Recursive",
             variable=self.selfRecursiveIntVar,
@@ -113,7 +114,7 @@ class GenerateTab:
         self.seedEntry.pack(pady=10)
         self.generatorTextbox.pack(pady=10)
 
-        generateButton = ctk.CTkButton(
+        generateButton = CTkButton(
             master=self.thisTab,
             text="Generate Text",
             command=self.StartGenerate
@@ -122,12 +123,12 @@ class GenerateTab:
         generateButton.pack()
 
     def ChooseGenerator(self):
-        self.generatorPath = filedialog.askdirectory(initialdir=os.getcwd(), mustexist=True)
+        self.generatorPath = askdirectory(initialdir=getcwd(), mustexist=True)
         self.generatorPathLabel.configure(text=self.generatorPath)
 
     def StartGenerate(self):
         self.Refresh()
-        threading.Thread(target=self.Generate).start()
+        Thread(target=self.Generate).start()
 
     def RemoveDuplicates(self, line):
         uniqueList = []

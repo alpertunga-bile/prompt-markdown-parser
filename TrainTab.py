@@ -1,14 +1,14 @@
-import os
-import customtkinter as ctk
+from os import getcwd
+from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
 import threading
-from tkinter import filedialog
+from tkinter.filedialog import askopenfilename
 from happytransformer import HappyGeneration, GENTrainArgs
 
 class TrainTab:
     parentWindow = None
     thisTab = None
 
-    trainName = os.getcwd()
+    trainName = getcwd()
     datasetLabel = None
 
     variableFrame = None
@@ -23,20 +23,20 @@ class TrainTab:
         self.parentWindow = parent
         self.thisTab = tab
 
-        self.variableFrame = ctk.CTkFrame(master=self.thisTab)
+        self.variableFrame = CTkFrame(master=self.thisTab)
 
-        modelNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Name")
-        self.modelNameEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
-        epochsLabel = ctk.CTkLabel(master=self.variableFrame, text="Epochs")
-        self.epochsEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="10")
-        batchSizeLabel = ctk.CTkLabel(master=self.variableFrame, text="Batch Size")
-        self.batchEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="1")
-        modelFolderLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Folder Name")
-        self.modelFolderEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. positive_model", width=160)
+        modelNameLabel = CTkLabel(master=self.variableFrame, text="Model Name")
+        self.modelNameEntry = CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
+        epochsLabel = CTkLabel(master=self.variableFrame, text="Epochs")
+        self.epochsEntry = CTkEntry(master=self.variableFrame, placeholder_text="10")
+        batchSizeLabel = CTkLabel(master=self.variableFrame, text="Batch Size")
+        self.batchEntry = CTkEntry(master=self.variableFrame, placeholder_text="1")
+        modelFolderLabel = CTkLabel(master=self.variableFrame, text="Model Folder Name")
+        self.modelFolderEntry = CTkEntry(master=self.variableFrame, placeholder_text="E.g. positive_model", width=160)
 
-        self.datasetLabel = ctk.CTkLabel(master=self.variableFrame, text=self.trainName)
+        self.datasetLabel = CTkLabel(master=self.variableFrame, text=self.trainName)
         
-        selectDatasetButton = ctk.CTkButton(
+        selectDatasetButton = CTkButton(
             master=self.variableFrame, 
             text="Choose Dataset",
             command=self.ChooseDataset
@@ -55,10 +55,10 @@ class TrainTab:
 
         self.variableFrame.pack()
 
-        self.infoLabel = ctk.CTkLabel(master=self.thisTab, text="")
+        self.infoLabel = CTkLabel(master=self.thisTab, text="")
         self.infoLabel.pack()
 
-        trainButton = ctk.CTkButton(
+        trainButton = CTkButton(
             master=self.thisTab,
             text="Train",
             command=self.StartTrain
@@ -66,7 +66,7 @@ class TrainTab:
         trainButton.pack(pady=10)
 
     def ChooseDataset(self):
-        self.datasetPath = filedialog.askopenfilename(initialdir=os.getcwd())
+        self.datasetPath = askopenfilename(initialdir=getcwd())
         self.datasetLabel.configure(text=self.trainName)
 
     def StartTrain(self):

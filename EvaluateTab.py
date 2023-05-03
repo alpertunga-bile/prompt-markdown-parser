@@ -1,7 +1,7 @@
-import os
-import customtkinter as ctk
-import threading
-from tkinter import filedialog
+from os import getcwd
+from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
+from threading import Thread
+from tkinter.filedialog import askopenfilename, askdirectory
 from happytransformer import HappyGeneration
 
 class EvaluateTab:
@@ -10,8 +10,8 @@ class EvaluateTab:
 
     variableFrame = None
     modelNameEntry = None
-    databaseName = os.getcwd()
-    modelPath = os.getcwd()
+    databaseName = getcwd()
+    modelPath = getcwd()
     datasetLabel = None
     modelLabel = None
 
@@ -21,22 +21,22 @@ class EvaluateTab:
         self.parentWindow = parent
         self.thisTab = tab
 
-        self.variableFrame = ctk.CTkFrame(master=self.thisTab)
+        self.variableFrame = CTkFrame(master=self.thisTab)
 
-        modelNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Model Name")
-        self.modelNameEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
+        modelNameLabel = CTkLabel(master=self.variableFrame, text="Model Name")
+        self.modelNameEntry = CTkEntry(master=self.variableFrame, placeholder_text="E.g. gpt2")
 
-        self.datasetLabel = ctk.CTkLabel(master=self.variableFrame, text=self.databaseName)
+        self.datasetLabel = CTkLabel(master=self.variableFrame, text=self.databaseName)
 
-        selectDatasetButton = ctk.CTkButton(
+        selectDatasetButton = CTkButton(
             master=self.variableFrame,
             text="Choose Dataset",
             command=self.ChooseDataset
         )
 
-        self.modelLabel = ctk.CTkLabel(master=self.variableFrame, text=self.modelPath)
+        self.modelLabel = CTkLabel(master=self.variableFrame, text=self.modelPath)
 
-        selectModelButton = ctk.CTkButton(
+        selectModelButton = CTkButton(
             master=self.variableFrame,
             text="Choose Model Folder",
             command=self.ChooseModel   
@@ -51,10 +51,10 @@ class EvaluateTab:
 
         self.variableFrame.pack()
 
-        self.infoLabel = ctk.CTkLabel(master=self.thisTab, text="")
+        self.infoLabel = CTkLabel(master=self.thisTab, text="")
         self.infoLabel.pack()
 
-        evaluateButton = ctk.CTkButton(
+        evaluateButton = CTkButton(
             master=self.thisTab,
             text="Evaluate",
             command=self.StartEvaluate
@@ -63,7 +63,7 @@ class EvaluateTab:
 
     def StartEvaluate(self):
         self.Refresh()
-        threading.Thread(target=self.Evaluate).start()
+        Thread(target=self.Evaluate).start()
 
     def Evaluate(self):
         self.infoLabel.configure(text="")
@@ -78,11 +78,11 @@ class EvaluateTab:
         self.infoLabel.configure(text=f"Evaluation Score : {result.loss}")
 
     def ChooseDataset(self):
-        self.databaseName = filedialog.askopenfilename(initialdir=os.getcwd())
+        self.databaseName = askopenfilename(initialdir=getcwd())
         self.datasetLabel.configure(text=self.databaseName)
     
     def ChooseModel(self):
-        self.modelPath = filedialog.askdirectory(initialdir=os.getcwd(), mustexist=True)
+        self.modelPath = askdirectory(initialdir=getcwd(), mustexist=True)
         self.modelLabel.configure(text=self.modelPath)
 
     def Refresh(self):

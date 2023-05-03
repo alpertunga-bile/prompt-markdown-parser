@@ -1,4 +1,5 @@
-import os
+from os.path import exists
+from os import mkdir
 from subprocess import call, DEVNULL
 import platform
 
@@ -28,7 +29,7 @@ class Startup:
         return venvCommand
     
     def CreateVenv(self):
-        if os.path.exists("venv") == True:
+        if exists("venv") == True:
             return
 
         print("Preparing virtual environment ...")
@@ -45,8 +46,8 @@ class Startup:
         return guiCommand
     
     def StartGUI(self):
-        if os.path.exists("dataset") is False:
-            os.mkdir("dataset")
+        if exists("dataset") is False:
+            mkdir("dataset")
 
         print("Starting GUI ...")
         guiCommand = self.GetStartGUICommand()

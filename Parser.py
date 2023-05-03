@@ -1,5 +1,6 @@
 from tkinter import filedialog
-import os
+from os.path import exists, join, splitext
+from os import getcwd
 from glob import glob
 from deep_translator import GoogleTranslator, MyMemoryTranslator, LingueeTranslator, PonsTranslator
 
@@ -19,7 +20,7 @@ class Parser:
     Select Markdown Files
     """
     def SelectDirectory(self):
-        self.promptFiles = filedialog.askopenfilenames(initialdir=os.getcwd())
+        self.promptFiles = filedialog.askopenfilenames(initialdir=getcwd())
         text = "1 file is selected" if len(self.promptFiles) == 1 else f"{len(self.promptFiles)} files are selected"
         self.directoryLabel.configure(text=text)
 
@@ -27,8 +28,8 @@ class Parser:
     Parse All Files in 'prompts' folder
     """
     def ParseAllFiles(self):
-        fastPath = os.path.join(os.getcwd(), "prompts")
-        if(os.path.exists(fastPath) == False):
+        fastPath = join(getcwd(), "prompts")
+        if(exists(fastPath) == False):
             self.textLabel.configure(text="There is no folder named 'prompts'")
             return
         self.promptFiles = glob(f"{fastPath}\*.md")
@@ -78,7 +79,7 @@ class Parser:
         self.SelectTranslator()
         
         for promptFile in self.promptFiles:
-            if(os.path.exists(promptFile) == False):
+            if(exists(promptFile) == False):
                 self.textLabel.configure(text=f"{promptFile} is not exists | Skipping ...")
                 continue
             
@@ -160,7 +161,7 @@ class Parser:
         """
         Get folder path where is the Markdown file located
         """
-        filename = os.path.splitext(promptFile)[0]
+        filename = splitext(promptFile)[0]
         
         positiveFilename = f"{filename}_positive.txt"
         negativeFilename = f"{filename}_negative.txt"

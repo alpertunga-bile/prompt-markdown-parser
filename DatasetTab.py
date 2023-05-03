@@ -1,8 +1,9 @@
-import os
-from tkinter import filedialog
-import customtkinter as ctk
-import threading
-import re
+from os import getcwd
+from os.path import exists
+from tkinter.filedialog import askopenfilename
+from customtkinter import CTkFrame, CTkButton, CTkLabel, CTkEntry, CTkProgressBar
+from threading import Thread
+from re import sub
 from tqdm import tqdm
 from bs4 import BeautifulSoup as bs
 import requests
@@ -24,22 +25,22 @@ class DatasetTab:
     def __init__(self, parent, tab):
         self.parentWindow = parent
         self.thisTab = tab
-        self.datasetPath = os.getcwd()
+        self.datasetPath = getcwd()
 
-        self.variableFrame = ctk.CTkFrame(master=self.thisTab)
+        self.variableFrame = CTkFrame(master=self.thisTab)
 
-        self.datasetLinkLabel = ctk.CTkLabel(master=self.variableFrame, text=self.datasetPath)
+        self.datasetLinkLabel = CTkLabel(master=self.variableFrame, text=self.datasetPath)
         
-        selectDatasetButton = ctk.CTkButton(
+        selectDatasetButton = CTkButton(
             master=self.variableFrame, 
             text="Choose Dataset",
             command=self.ChooseDataset
         )
 
-        positiveNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Dataset Positive Filename")
-        self.positiveFileEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. positive")
-        negativeNameLabel = ctk.CTkLabel(master=self.variableFrame, text="Dataset Negative Filename")
-        self.negativeFileEntry = ctk.CTkEntry(master=self.variableFrame, placeholder_text="E.g. negative")
+        positiveNameLabel = CTkLabel(master=self.variableFrame, text="Dataset Positive Filename")
+        self.positiveFileEntry = CTkEntry(master=self.variableFrame, placeholder_text="E.g. positive")
+        negativeNameLabel = CTkLabel(master=self.variableFrame, text="Dataset Negative Filename")
+        self.negativeFileEntry = CTkEntry(master=self.variableFrame, placeholder_text="E.g. negative")
 
         self.datasetLinkLabel.grid(column=0, row=0, padx=(0, 50), ipady=5, pady=10)
         selectDatasetButton.grid(column=1, row=0)
@@ -50,17 +51,17 @@ class DatasetTab:
 
         self.variableFrame.pack(pady=10)
 
-        self.infoLabel = ctk.CTkLabel(master=self.thisTab, text="")
+        self.infoLabel = CTkLabel(master=self.thisTab, text="")
         self.infoLabel.pack()
 
-        createDatasetButton = ctk.CTkButton(
+        createDatasetButton = CTkButton(
             master=self.thisTab,
             text="Create Dataset",
             command=self.CreateDataset
         )
         createDatasetButton.pack()
 
-        self.progressBar = ctk.CTkProgressBar(
+        self.progressBar = CTkProgressBar(
             master=self.thisTab,
             orientation='horizontal',
             mode='determinate'
@@ -69,12 +70,12 @@ class DatasetTab:
         self.progressBar.pack_forget()
 
     def ChooseDataset(self):
-        self.datasetPath = filedialog.askopenfilename(initialdir=os.getcwd())
+        self.datasetPath = askopenfilename(initialdir=getcwd())
         self.datasetLinkLabel.configure(text=self.datasetPath)
 
     def CreateDataset(self):
         self.Refresh()
-        threading.Thread(target=self.Create).start()
+        Thread(target=self.Create).start()
 
     def Create(self):
         positiveFilename = self.positiveFileEntry.get()
@@ -84,7 +85,7 @@ class DatasetTab:
             self.infoLabel.configure(text="Please Enter Filename")
             return
         
-        if self.datasetPath == os.getcwd():
+        if self.datasetPath == getcwd():
             self.infoLabel.configure(text="Please Select Valid Dataset File")
             return
 
@@ -118,12 +119,12 @@ class DatasetTab:
         else:
             negativeFilename = f"dataset/{negativeFilename}"
 
-        if os.path.exists(positiveFilename) == True:
+        if exists(positiveFilename) == True:
             positiveFile = open(positiveFilename, 'r')
             positivePrompts = positiveFile.readlines()
             positiveFile.close()
             
-        if os.path.exists(negativeFilename) == True:
+        if exists(negativeFilename) == True:
             negativeFile = open(negativeFilename, 'r')
             negativePrompts = negativeFile.readlines()
             negativeFile.close()
@@ -169,7 +170,7 @@ class DatasetTab:
 
     def Preprocess(self, line):
         tempLine = line.replace("\n", "")
-        tempLine = re.sub(r'<.+?>', '', tempLine)
+        tempLine = sub(r'<.+?>', '', tempLine)
         tempLine = tempLine.replace("  ", " ")
         tempLine = tempLine.replace("\t", " ")
         if tempLine.startswith(" "):

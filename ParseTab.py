@@ -1,7 +1,8 @@
-import os
-import tkinter as tk
-import customtkinter as ctk
-import threading
+from os.path import join
+from os import getcwd
+from tkinter import IntVar
+from customtkinter import StringVar, CTkCheckBox, CTkComboBox, CTkFrame, CTkLabel, CTkButton, CTkProgressBar
+from threading import Thread
 from Parser import Parser
 
 class ParseTab:
@@ -20,8 +21,8 @@ class ParseTab:
         // Translation Variables
         //////////////////////////////////////////////////////////////////////////////////////////////
         """
-        self.parser.translatorName = ctk.StringVar(value='Google')
-        translatorCombobox = ctk.CTkComboBox(
+        self.parser.translatorName = StringVar(value='Google')
+        translatorCombobox = CTkComboBox(
             master=self.thisTab,
             width=150,
             variable=self.parser.translatorName,
@@ -35,8 +36,8 @@ class ParseTab:
         )
         translatorCombobox.pack(pady=10)
 
-        self.parser.translateValue = tk.IntVar()
-        translateCheckButton = ctk.CTkCheckBox(
+        self.parser.translateValue = IntVar()
+        translateCheckButton = CTkCheckBox(
             master=self.thisTab,
             text='Translate Prompts',
             variable=self.parser.translateValue,
@@ -51,9 +52,9 @@ class ParseTab:
         //////////////////////////////////////////////////////////////////////////////////////////////
         """
 
-        tempPath = os.path.join(os.getcwd(), "prompts")
+        tempPath = join(getcwd(), "prompts")
 
-        fastButton = ctk.CTkButton(
+        fastButton = CTkButton(
             master=self.thisTab,
             text="Parse All Files In 'prompts' Folder",
             command=self.ParseAllFiles
@@ -66,12 +67,12 @@ class ParseTab:
         // Select Markdown Files
         //////////////////////////////////////////////////////////////////////////////////////////////
         """
-        self.startFrame = ctk.CTkFrame(master=self.thisTab)
+        self.startFrame = CTkFrame(master=self.thisTab)
 
-        directoryLabel = ctk.CTkLabel(master=self.startFrame, text=f"{tempPath}")
+        directoryLabel = CTkLabel(master=self.startFrame, text=f"{tempPath}")
         directoryLabel.grid(column=0, row=0, padx=(0, 50), ipady=5, pady=10)
 
-        selectButton = ctk.CTkButton(
+        selectButton = CTkButton(
             master=self.startFrame,
             text="Select Prompt Files",
             command=self.parser.SelectDirectory
@@ -87,17 +88,17 @@ class ParseTab:
         //////////////////////////////////////////////////////////////////////////////////////////////
         """
 
-        self.initializeFrame = ctk.CTkFrame(master=self.thisTab)
+        self.initializeFrame = CTkFrame(master=self.thisTab)
 
-        initializeButton = ctk.CTkButton(
+        initializeButton = CTkButton(
             master=self.initializeFrame,
             text="Parse And Save",
             command=self.Parse
         )
 
-        informationLabel = ctk.CTkLabel(master=self.initializeFrame, text="")
+        informationLabel = CTkLabel(master=self.initializeFrame, text="")
 
-        progressBar = ctk.CTkProgressBar(
+        progressBar = CTkProgressBar(
             master=self.initializeFrame,
             orientation='horizontal',
             mode='determinate'
@@ -122,11 +123,11 @@ class ParseTab:
     """
     def Parse(self):
         self.Refresh()
-        threading.Thread(target=self.parser.Run).start()
+        Thread(target=self.parser.Run).start()
 
     """
     Run ParseAllFiles function in new thread
     """
     def ParseAllFiles(self):
         self.Refresh()
-        threading.Thread(target=self.parser.ParseAllFiles).start()
+        Thread(target=self.parser.ParseAllFiles).start()
