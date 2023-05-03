@@ -1,11 +1,11 @@
 from customtkinter import CTk, CTkImage, CTkButton, CTkTabview, TOP, N, NW, get_appearance_mode,set_appearance_mode, set_default_color_theme
 from PIL import Image
 
-from ParseTab import ParseTab
-from DatasetTab import DatasetTab
-from TrainTab import TrainTab
-from EvaluateTab import EvaluateTab
-from GenerateTab import GenerateTab
+from Tabs.ParseTab import ParseTab
+from Tabs.DatasetTab import DatasetTab
+from Tabs.TrainTab import TrainTab
+from Tabs.EvaluateTab import EvaluateTab
+from Tabs.GenerateTab import GenerateTab
 
 class GUI:
     window = None
