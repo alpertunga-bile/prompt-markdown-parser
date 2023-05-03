@@ -1,5 +1,5 @@
 from os.path import exists
-from os import mkdir, remove
+from os import mkdir, remove, rmdir
 from subprocess import call, DEVNULL
 from platform import system
 from time import sleep
@@ -91,3 +91,10 @@ class Startup:
         remove("requirements.txt")
 
         print("Updating is Finished")
+
+    def ReInstall(self):
+        if exists('venv') is False:
+            return
+        
+        rmdir('venv')
+        self.CreateVenv()
