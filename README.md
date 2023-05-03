@@ -23,7 +23,8 @@
 
 # Updates
 ## Update Date : 03/05/2023
-- Update packages inside virtual environment is added with command line argument.
+- Update packages inside virtual environment functionality is added with command line argument.
+- Reinstalling virtual environment functionality is added with command line argument.
 - Optimization is done for importing modules.
 
 ## Update Date : 01/05/2023
