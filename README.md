@@ -22,6 +22,10 @@
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates
+## Update Date : 03/05/2023
+- Update packages inside virtual environment is added with command line argument.
+- Optimization is done for importing modules.
+
 ## Update Date : 01/05/2023
 - SelfRecursive algorithm is added.
 - Preprocess is added for generating tab to get prompt more accurately.
@@ -54,7 +58,6 @@
 
 # Requirements
 - Tested in Windows OS environment.
-- Venv, deep-translator, customtkinter, happytransformer, Pillow, beautifulsoup4, tqdm, lxml and Tkinter packages are used.
 - Tested with Python 3.10.6. As a note for Python 3.10.6 version Tkinter comes as default. You can easily test it with these commands:
 
 ## Check Tkinter Module
