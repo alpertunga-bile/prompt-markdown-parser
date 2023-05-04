@@ -37,6 +37,7 @@
 - Auto-complete with ```TAB``` button functionality is added.
 - Reinstalling environment, updating packages in the virtual environment and passing virtual environment check functionalities are added.
 - Virtual environments are seperated.
+- Importing module optimizations are done.
 
 ## Update Date : 03/05/2023
 - Update packages inside virtual environment functionality is added with command line argument.
@@ -75,6 +76,7 @@
 
 # Requirements
 - Tested in Windows OS environment.
+- Minimum 3.7 Python version is required for the GUI application.
 - Tested with Python 3.10.6. As a note for Python 3.10.6 version Tkinter comes as default. You can easily test it with these commands:
 
 ## Check Tkinter Module
