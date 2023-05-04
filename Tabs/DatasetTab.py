@@ -1,12 +1,6 @@
 from os import getcwd
 from os.path import exists
-from tkinter.filedialog import askopenfilename
-from customtkinter import CTkFrame, CTkButton, CTkLabel, CTkEntry, CTkProgressBar
 from threading import Thread
-from re import sub
-from tqdm import tqdm
-from bs4 import BeautifulSoup as bs
-import requests
 
 class DatasetTab:
     parentWindow = None
@@ -23,6 +17,8 @@ class DatasetTab:
     progressBar = None
 
     def __init__(self, parent, tab):
+        from customtkinter import CTkFrame, CTkButton, CTkLabel, CTkEntry, CTkProgressBar
+
         self.parentWindow = parent
         self.thisTab = tab
         self.datasetPath = getcwd()
@@ -70,6 +66,8 @@ class DatasetTab:
         self.progressBar.pack_forget()
 
     def ChooseDataset(self):
+        from tkinter.filedialog import askopenfilename
+
         self.datasetPath = askopenfilename(initialdir=getcwd())
         self.datasetLinkLabel.configure(text=self.datasetPath)
 
@@ -78,6 +76,10 @@ class DatasetTab:
         Thread(target=self.Create).start()
 
     def Create(self):
+        from tqdm import tqdm
+        from bs4 import BeautifulSoup as bs
+        import requests
+
         positiveFilename = self.positiveFileEntry.get()
         negativeFilename = self.negativeFileEntry.get()
 
@@ -169,6 +171,8 @@ class DatasetTab:
         self.infoLabel.configure(text="DONE !!!")
 
     def Preprocess(self, line):
+        from re import sub
+
         tempLine = line.replace("\n", "")
         tempLine = sub(r'<.+?>', '', tempLine)
         tempLine = tempLine.replace("  ", " ")

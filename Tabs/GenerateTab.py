@@ -1,9 +1,5 @@
 from os import getcwd
-from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton, CTkCheckBox, CTkTextbox, CTkSlider
 from threading import Thread
-from tkinter import IntVar
-from tkinter.filedialog import askdirectory
-from happytransformer import HappyGeneration, GENSettings
 
 class GenerateTab:
     parentWindow = None
@@ -28,6 +24,9 @@ class GenerateTab:
     selfRecursiveCheckbox = None
 
     def __init__(self, parent, tab):
+        from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton, CTkCheckBox, CTkTextbox, CTkSlider
+        from tkinter import IntVar
+
         self.parentWindow = parent
         self.thisTab = tab
 
@@ -123,6 +122,8 @@ class GenerateTab:
         generateButton.pack()
 
     def ChooseGenerator(self):
+        from tkinter.filedialog import askdirectory
+
         self.generatorPath = askdirectory(initialdir=getcwd(), mustexist=True)
         self.generatorPathLabel.configure(text=self.generatorPath)
 
@@ -155,6 +156,8 @@ class GenerateTab:
         earlyStopping = True if self.earlyStoppingCheckboxIntVar.get() == 1 else False
         recursiveLevel = int(self.recursiveSlider.get())
         selfRecursive = True if self.selfRecursiveIntVar.get() == 1 else False
+
+        from happytransformer import HappyGeneration, GENSettings
 
         generatorArgs = GENSettings(
             min_length=minLength,

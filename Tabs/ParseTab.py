@@ -1,7 +1,5 @@
 from os.path import join
 from os import getcwd
-from tkinter import IntVar
-from customtkinter import StringVar, CTkCheckBox, CTkComboBox, CTkFrame, CTkLabel, CTkButton, CTkProgressBar
 from threading import Thread
 from Parser import Parser
 
@@ -13,6 +11,9 @@ class ParseTab:
     parser = Parser()
 
     def __init__(self, parent, tab):
+        from customtkinter import StringVar, CTkCheckBox, CTkComboBox, CTkFrame, CTkLabel, CTkButton, CTkProgressBar
+        from tkinter import IntVar
+
         self.parentWindow = parent
         self.thisTab = tab
         

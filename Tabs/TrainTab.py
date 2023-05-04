@@ -1,8 +1,5 @@
 from os import getcwd
-from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
 import threading
-from tkinter.filedialog import askopenfilename
-from happytransformer import HappyGeneration, GENTrainArgs
 
 class TrainTab:
     parentWindow = None
@@ -20,6 +17,8 @@ class TrainTab:
     infoLabel = None
 
     def __init__(self, parent, tab):
+        from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
+
         self.parentWindow = parent
         self.thisTab = tab
 
@@ -66,6 +65,8 @@ class TrainTab:
         trainButton.pack(pady=10)
 
     def ChooseDataset(self):
+        from tkinter.filedialog import askopenfilename
+
         self.datasetPath = askopenfilename(initialdir=getcwd())
         self.datasetLabel.configure(text=self.trainName)
 
@@ -84,6 +85,8 @@ class TrainTab:
         epochs = 10 if self.epochsEntry.get() == "" else int(self.epochsEntry.get())
         batchSize = 1 if self.batchEntry.get() == "" else int(self.batchEntry.get())
         modelFolder = self.modelFolderEntry.get()
+
+        from happytransformer import HappyGeneration, GENTrainArgs
 
         happy_gen = HappyGeneration(upperModelName, modelName)
         args = GENTrainArgs(num_train_epochs=epochs, batch_size=batchSize)

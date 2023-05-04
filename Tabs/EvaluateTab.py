@@ -1,8 +1,5 @@
 from os import getcwd
-from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
 from threading import Thread
-from tkinter.filedialog import askopenfilename, askdirectory
-from happytransformer import HappyGeneration
 
 class EvaluateTab:
     parentWindow = None
@@ -18,6 +15,8 @@ class EvaluateTab:
     infoLabel = None
 
     def __init__(self, parent, tab):
+        from customtkinter import CTkFrame, CTkLabel, CTkEntry, CTkButton
+
         self.parentWindow = parent
         self.thisTab = tab
 
@@ -73,15 +72,21 @@ class EvaluateTab:
         if modelName.find("/") != -1:
             upperModelName = modelName.split("/")[1].upper()
 
+        from happytransformer import HappyGeneration
+
         happy_gen = HappyGeneration(upperModelName, modelName, load_path=self.modelPath)
         result = happy_gen.eval(self.databaseName)
         self.infoLabel.configure(text=f"Evaluation Score : {result.loss}")
 
     def ChooseDataset(self):
+        from tkinter.filedialog import askopenfilename
+
         self.databaseName = askopenfilename(initialdir=getcwd())
         self.datasetLabel.configure(text=self.databaseName)
     
     def ChooseModel(self):
+        from tkinter.filedialog import askdirectory
+
         self.modelPath = askdirectory(initialdir=getcwd(), mustexist=True)
         self.modelLabel.configure(text=self.modelPath)
 

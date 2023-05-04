@@ -11,7 +11,7 @@ class Startup:
     def __init__(self):
         self.osName = system()
 
-        if exists("venv"):
+        if exists("venv") is False:
             mkdir("venv")
 
     def GetGUIVenvCreateCommand(self):
