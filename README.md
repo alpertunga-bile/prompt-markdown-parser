@@ -12,11 +12,14 @@
 - [Updates](https://github.com/alpertunga-bile/prompt-markdown-parser#updates)
 - [Requirements](https://github.com/alpertunga-bile/prompt-markdown-parser#requirements)
 - [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser#usage)
-    - [Parser Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-tab)
-    - [Dataset Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#dataset-tab)
-    - [Train Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#train-tab)
-    - [Evaluate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-tab)
-    - [Generate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-tab)
+    - [CLI Application](https://github.com/alpertunga-bile/prompt-markdown-parser#cli-application)
+      - [Parse Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#parse-menu)
+    - [GUI Application](https://github.com/alpertunga-bile/prompt-markdown-parser#gui-application)
+      - [Parser Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-tab)
+      - [Dataset Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#dataset-tab)
+      - [Train Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#train-tab)
+      - [Evaluate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-tab)
+      - [Generate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-tab)
 - [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#examples)
     - [Parser Example](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-example)
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
@@ -69,7 +72,71 @@
 # Usage
 - Clone the repository with ```git clone https://github.com/alpertunga-bile/prompt-markdown-parser.git``` command.
 - Get into folder with ```cd prompt-markdown-parser``` command.
-- Start the application with ```python start.py``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the GUI application.
+
+# CLI Application
+
+- Start the application with ```python start.py --cli``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the CLI application.
+- There are 8 commands in the main menu. These are parse, create, train, evaluate, generate, clear, cls and exit. With first 5 commands you can access to different menus. With clear and cls commands you can clear the terminal. With exit command you can terminate the application.
+- You do not have to write all the commands you can write first 2 or 3 letters and press ```TAB``` button for auto complete.
+
+## Parse Menu
+- In parse section there are 3 commands, allParse, parse and exit. You can use ```TAB``` button here.
+- You have to have ```prompts``` folder to continue with allParse command. It will found all .md files under ```prompts``` folder and print the total files it can found. After that it is going to ask you to want to translate. You can use auto complete functionality here. Then it is going to parse all files and write them under ```prompts``` folder.
+- In parse command. You specify a filepath to parse and it is going to ask translation and after that it is going to parsed and saved to the same folder with .md file.
+
+## Create Menu
+- In the create menu, you have to give dataset path. So how to create dataset file? It is quite easy actually, go to CivitAi site and find images you like. Then copy their link and paste in a txt file. 
+- Then specify positive filename. If you have already positive dataset you can specify it too but it has to be under the dataset folder.
+- Then specify negative filename. If you have already negative dataset you can specify it too but it has to be under the dataset folder.
+- You can write with or without file extensions.
+- Aftert that wait for progress bar to finish and ```DONE !!!``` text on the terminal.
+
+## Train Menu
+- Give your dataset path. Which can be your positive or negative datasets. Not the links dataset.
+- Enter your model name for example ```gpt2```. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation). If you are going to use this site, write all the model names for example ```bigscience/bloom-560m```.
+- Enter epochs.
+- Enter batch size.
+- Enter model save folder name. The model is going to save under dataset folder. So just right the name of the folder you want to save.
+- Wait for ```DONE!!!``` text on the terminal.
+
+## Evaluate Menu
+- Give your dataset path. Which can be your positive or negative datasets. Not the links dataset.
+- Enter your model name for example ```gpt2```. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation). If you are going to use this site, write all the model names for example ```bigscience/bloom-560m```.
+- Enter the model path.
+- Wait for ```Evaluation Score (Loss)``` text on the terminal.
+
+## Generate Menu
+- Enter your model name for example ```gpt2```. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation). If you are going to use this site, write all the model names for example ```bigscience/bloom-560m```.
+- Enter the model path.
+- Enter the minimum length that your generator can generate.
+- Enter the maximum length that your generator can generate.
+- Choose if you want do sample functionality.
+- Choose if you want early stopping functionality.
+- Specify recursive level.
+- Choose if you want self recursive functionality.
+
+### How Recursive Works?
+- Let's say we give ```a, ``` as seed and recursive level is 1. I am going to use the same outputs for this example to understand the functionality more accurately.
+- With self recursive, let's say generator's output is ```b```. So next seed is going to be ```b``` and generator's output is ```c```. Final output is ```a, c```. It can be used for generating random outputs.
+- Without self recursive, let's say generator's output is ```b```. So next seed is going to be ```a, b``` and generator's output is ```a, b, c```. Final output is ```a, b, c```. It can be used for more accurate prompts.
+
+- Now there are 6 commands you can use. These are generate, set, print, clear, cls and exit commands.
+
+### Generate Menu
+- In the generate menu, you can enter seed and get the generated text.
+
+### Set Menu
+- You can choose a variable to set its value. You can choose the variables that you specify before except model name and model path.
+
+### Print Menu
+- Print the current variables values.
+
+- clear and cls commands are clearing the terminal and exit command is return you to CLI applications main menu.
+
+# GUI Application
+
+- Start the application with ```python start.py --gui``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the GUI application.
+
 ## Parser Tab
 - You can choose ***Translate Prompts*** checkbox to translate your prompts to English. You can write prompts in a mixture of English and your native language. GoogleTranslator is used for translation. This checkbox works with ***Parse All Files In 'prompts' Folder*** and ***Parse And Save*** functionalities.
 - ***Parse All Files In 'prompts' Folder*** button is getting all markdown files under 'prompts' folder which is located in repo directory and parse and save them.
@@ -83,7 +150,7 @@
 - Write positive and negative filenames as you want to name them.
 - Click ***Create Dataset*** button and wait. You can watch the progress with progressbar in GUI and in terminal.
 ## Train Tab
-- Enter your model name. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation)
+- Enter your model name. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation).
 - Enter epochs, batch size.
 - Enter folder name for your model. Your model is going to be saved into 'dataset' folder.
 - Choose dataset to train with model.
