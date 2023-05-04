@@ -1,8 +1,9 @@
 from os.path import exists
-from os import mkdir, remove, rmdir
+from os import mkdir, remove
 from subprocess import call, DEVNULL
 from platform import system
 from time import sleep
+from shutil import rmtree
 
 class Startup:
     osName = None
@@ -10,40 +11,41 @@ class Startup:
     def __init__(self):
         self.osName = system()
 
-    def GetVenvCreateCommand(self):
+    def GetGUIVenvCreateCommand(self):
         venvCommand = ""
         if self.osName == 'Linux':
-            venvCommand = "pip install virtualenv && virtualenv venv && "
-            venvCommand += "source /venv/bin/activate && "
+            venvCommand = "pip install virtualenv && virtualenv gui_venv && "
+            venvCommand += "source /gui_venv/bin/activate && "
             venvCommand += "pip3 install deep-translator customtkinter Pillow beautifulsoup4 requests tqdm lxml happytransformer && "
             venvCommand += "pip3 uninstall torch --yes && "
             venvCommand += "pip3 install torch torchvision torchaudio && "
             venvCommand += "deactivate"
         elif self.osName == 'Windows':
-            venvCommand = "py -m venv venv && "
-            venvCommand += ".\\venv\Scripts\\activate.bat && "
-            venvCommand += ".\\venv\Scripts\\pip.exe install deep-translator customtkinter Pillow beautifulsoup4 requests tqdm lxml happytransformer && "
-            venvCommand += ".\\venv\\Scripts\\pip.exe uninstall torch --yes && "
-            venvCommand += ".\\venv\\Scripts\\pip.exe install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117 && "
-            venvCommand += ".\\venv\\Scripts\\deactivate.bat"
+            venvCommand = "py -m venv gui_venv && "
+            venvCommand += ".\\gui_venv\Scripts\\activate.bat && "
+            venvCommand += ".\\gui_venv\Scripts\\pip.exe install deep-translator customtkinter Pillow beautifulsoup4 requests tqdm lxml happytransformer && "
+            venvCommand += ".\\gui_venv\\Scripts\\pip.exe uninstall torch --yes && "
+            venvCommand += ".\\gui_venv\\Scripts\\pip.exe install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117 && "
+            venvCommand += ".\\gui_venv\\Scripts\\deactivate.bat"
         
         return venvCommand
     
     def GetStartGUICommand(self):
         guiCommand = ""
         if self.osName == 'Linux':
-            guiCommand = "source /venv/bin/activate && python3 GUImain.py"
+            guiCommand = "source /gui_venv/bin/activate && python3 GUImain.py"
         elif self.osName == 'Windows':
-            guiCommand = ".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\python.exe GUImain.py"
+            guiCommand = ".\\gui_venv\\Scripts\\activate.bat && .\\gui_venv\\Scripts\\python.exe GUImain.py"
         
         return guiCommand
     
-    def CreateVenv(self):
-        if exists("venv") == True:
-            return
+    def CreateGUIVenv(self, isPass):
+        if isPass is False:
+            if exists("gui_venv"):
+                return
 
-        print("Preparing virtual environment ...")
-        result = call(self.GetVenvCreateCommand(), shell=True, stdout=DEVNULL)
+        print("Preparing GUI virtual environment ...")
+        result = call(self.GetGUIVenvCreateCommand(), shell=True, stdout=DEVNULL)
         _ = print("Virtual environment is created") if result == 0 else print("Error")
     
     def StartGUI(self):
@@ -57,42 +59,17 @@ class Startup:
         if self.osName == 'Linux':
             result = call("deactivate", shell=True, stdout=DEVNULL)
         elif self.osName == 'Windows':
-            result = call(".\\venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
+            result = call(".\\gui_venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
         
         if result == 0:
             print("Finished successfully")
 
-    def GetStartCLICommand(self):
-        cliCommand = ""
-        if self.osName == 'Linux':
-            cliCommand = "source /venv/bin/activate && python3 CLImain.py"
-        elif self.osName == 'Windows':
-            cliCommand = ".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\python.exe CLImain.py"
-        
-        return cliCommand
-
-    def StartCLI(self):
-        if exists("dataset") is False:
-            mkdir("dataset")
-
-        print("Starting CLI ...")
-        cliCommand = self.GetStartCLICommand()
-        result = call(cliCommand, shell=True)
-        
-        if self.osName == 'Linux':
-            result = call("deactivate", shell=True, stdout=DEVNULL)
-        elif self.osName == 'Windows':
-            result = call(".\\venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
-        
-        if result == 0:
-            print("Finished successfully")
-
-    def Update(self):
+    def UpdateGUIVenv(self):
         print("Updating ...")
         if self.osName == 'Linux':
-            call("source /venv/bin/activate && pip3 freeze > requirements.txt", shell=True, stdout=DEVNULL)
+            call("source /gui_venv/bin/activate && pip3 freeze > requirements.txt", shell=True, stdout=DEVNULL)
         elif self.osName == 'Windows':
-            call(".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\pip.exe freeze > requirements.txt", shell=True, stdout=DEVNULL)
+            call(".\\gui_venv\\Scripts\\activate.bat && .\\gui_venv\\Scripts\\pip.exe freeze > requirements.txt", shell=True, stdout=DEVNULL)
 
         sleep(0.5)
 
@@ -111,15 +88,111 @@ class Startup:
         if self.osName == 'Linux':
             call("pip3 install -r requirements.txt --upgrade && deactivate", shell=True, stdout=DEVNULL)
         elif self.osName == 'Windows':
-            call(".\\venv\\Scripts\\pip.exe install -r requirements.txt --upgrade && .\\venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
+            call(".\\gui_venv\\Scripts\\pip.exe install -r requirements.txt --upgrade && .\\gui_venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
 
         remove("requirements.txt")
 
         print("Updating is Finished")
 
-    def ReInstall(self):
-        if exists('venv') is False:
+    def ReInstallGUIVenv(self):
+        if exists('gui_venv') is False:
             return
         
-        rmdir('venv')
-        self.CreateVenv()
+        rmtree('cli_venv')('gui_venv')
+        self.CreateGUIVenv()
+
+    """
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // CLI
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    """
+
+    def GetCLIVenvCreateCommand(self):
+        venvCommand = ""
+        if self.osName == 'Linux':
+            venvCommand = "pip install virtualenv && virtualenv cli_venv && "
+            venvCommand += "source /cli_venv/bin/activate && "
+            venvCommand += "pip3 install deep-translator beautifulsoup4 requests tqdm lxml happytransformer && "
+            venvCommand += "pip3 uninstall torch --yes && "
+            venvCommand += "pip3 install torch torchvision torchaudio && "
+            venvCommand += "deactivate"
+        elif self.osName == 'Windows':
+            venvCommand = "py -m venv cli_venv && "
+            venvCommand += ".\\cli_venv\Scripts\\activate.bat && "
+            venvCommand += ".\\cli_venv\Scripts\\pip.exe install deep-translator beautifulsoup4 requests tqdm lxml happytransformer pyreadline3 && "
+            venvCommand += ".\\cli_venv\\Scripts\\pip.exe uninstall torch --yes && "
+            venvCommand += ".\\cli_venv\\Scripts\\pip.exe install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117 && "
+            venvCommand += ".\\cli_venv\\Scripts\\deactivate.bat"
+
+        return venvCommand
+
+    def CreateCLIVenv(self, isPass):
+        if isPass is False:
+            if exists("cli_venv"):
+                return
+        
+        print("Preparing CLI virtual environment ...")
+        result = call(self.GetCLIVenvCreateCommand(), shell=True, stdout=DEVNULL)
+        _ = print("Virtual environment is created") if result == 0 else print("Error")
+
+    def GetStartCLICommand(self):
+        cliCommand = ""
+        if self.osName == 'Linux':
+            cliCommand = "source /cli_venv/bin/activate && python3 CLImain.py"
+        elif self.osName == 'Windows':
+            cliCommand = ".\\cli_venv\\Scripts\\activate.bat && .\\cli_venv\\Scripts\\python.exe CLImain.py"
+        
+        return cliCommand
+
+    def StartCLI(self):
+        if exists("dataset") is False:
+            mkdir("dataset")
+
+        print("Starting CLI ...")
+        cliCommand = self.GetStartCLICommand()
+        result = call(cliCommand, shell=True)
+        
+        if self.osName == 'Linux':
+            result = call("deactivate", shell=True, stdout=DEVNULL)
+        elif self.osName == 'Windows':
+            result = call(".\\cli_venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
+        
+        if result == 0:
+            print("Finished successfully")
+
+    def UpdateCLIVenv(self):
+        print("Updating ...")
+        if self.osName == 'Linux':
+            call("source /cli_venv/bin/activate && pip3 freeze > requirements.txt", shell=True, stdout=DEVNULL)
+        elif self.osName == 'Windows':
+            call(".\\cli_venv\\Scripts\\activate.bat && .\\cli_venv\\Scripts\\pip.exe freeze > requirements.txt", shell=True, stdout=DEVNULL)
+
+        sleep(0.5)
+
+        file = open("requirements.txt", "r")
+        lines = file.readlines()
+        file.close()
+
+        file = open("requirements.txt", "w")
+        for line in lines:
+            file.writelines(line.replace("==", ">="))
+
+        file.close()
+        
+        sleep(0.5)
+
+        if self.osName == 'Linux':
+            call("pip3 install -r requirements.txt --upgrade && deactivate", shell=True, stdout=DEVNULL)
+        elif self.osName == 'Windows':
+            call(".\\cli_venv\\Scripts\\pip.exe install -r requirements.txt --upgrade && .\\cli_venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
+
+        remove("requirements.txt")
+
+        print("Updating is Finished")
+
+    def ReInstallCLIVenv(self):
+        if exists('cli_venv') is False:
+            return
+        
+        rmtree('cli_venv')
+        self.CreateCLIVenv()
