@@ -14,6 +14,13 @@
 - [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser#usage)
     - [CLI Application](https://github.com/alpertunga-bile/prompt-markdown-parser#cli-application)
       - [Parse Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#parse-menu)
+      - [Create Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#create-menu)
+      - [Train Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#train-menu)
+      - [Evaluate Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-menu)
+      - [Generate Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-menu)
+        - [Generate Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-menu-1)
+        - [Set Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#set-menu)
+        - [Print Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#print-menu)
     - [GUI Application](https://github.com/alpertunga-bile/prompt-markdown-parser#gui-application)
       - [Parser Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-tab)
       - [Dataset Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#dataset-tab)
@@ -25,6 +32,12 @@
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates
+## Update Date : 04/05/2023
+- CLI application is added.
+- Auto-complete with ```TAB``` button functionality is added.
+- Reinstalling environment, updating packages in the virtual environment and passing virtual environment check functionalities are added.
+- Virtual environments are seperated.
+
 ## Update Date : 03/05/2023
 - Update packages inside virtual environment functionality is added with command line argument.
 - Reinstalling virtual environment functionality is added with command line argument.
@@ -120,7 +133,7 @@
 - With self recursive, let's say generator's output is ```b```. So next seed is going to be ```b``` and generator's output is ```c```. Final output is ```a, c```. It can be used for generating random outputs.
 - Without self recursive, let's say generator's output is ```b```. So next seed is going to be ```a, b``` and generator's output is ```a, b, c```. Final output is ```a, b, c```. It can be used for more accurate prompts.
 
-- Now there are 6 commands you can use. These are generate, set, print, clear, cls and exit commands.
+- Now there are 6 commands you can use. These are generate, set, print, clear, cls and exit commands. clear and cls commands are clearing the terminal and exit command is return you to CLI applications main menu.
 
 ### Generate Menu
 - In the generate menu, you can enter seed and get the generated text.
@@ -130,8 +143,6 @@
 
 ### Print Menu
 - Print the current variables values.
-
-- clear and cls commands are clearing the terminal and exit command is return you to CLI applications main menu.
 
 # GUI Application
 
