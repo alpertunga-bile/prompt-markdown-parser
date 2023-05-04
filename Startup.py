@@ -32,9 +32,9 @@ class Startup:
     def GetStartGUICommand(self):
         guiCommand = ""
         if self.osName == 'Linux':
-            guiCommand = "source /venv/bin/activate && python3 main.py"
+            guiCommand = "source /venv/bin/activate && python3 GUImain.py"
         elif self.osName == 'Windows':
-            guiCommand = ".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\pip.exe freeze > requirements.txt && .\\venv\\Scripts\\python.exe main.py"
+            guiCommand = ".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\python.exe GUImain.py"
         
         return guiCommand
     
@@ -53,6 +53,31 @@ class Startup:
         print("Starting GUI ...")
         guiCommand = self.GetStartGUICommand()
         result = call(guiCommand, shell=True, stdout=DEVNULL)
+        
+        if self.osName == 'Linux':
+            result = call("deactivate", shell=True, stdout=DEVNULL)
+        elif self.osName == 'Windows':
+            result = call(".\\venv\\Scripts\\deactivate.bat", shell=True, stdout=DEVNULL)
+        
+        if result == 0:
+            print("Finished successfully")
+
+    def GetStartCLICommand(self):
+        cliCommand = ""
+        if self.osName == 'Linux':
+            cliCommand = "source /venv/bin/activate && python3 CLImain.py"
+        elif self.osName == 'Windows':
+            cliCommand = ".\\venv\\Scripts\\activate.bat && .\\venv\\Scripts\\python.exe CLImain.py"
+        
+        return cliCommand
+
+    def StartCLI(self):
+        if exists("dataset") is False:
+            mkdir("dataset")
+
+        print("Starting CLI ...")
+        cliCommand = self.GetStartCLICommand()
+        result = call(cliCommand, shell=True)
         
         if self.osName == 'Linux':
             result = call("deactivate", shell=True, stdout=DEVNULL)

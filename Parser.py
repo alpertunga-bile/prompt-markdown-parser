@@ -1,4 +1,4 @@
-from tkinter import filedialog
+from tkinter.filedialog import askopenfilenames
 from os.path import exists, join, splitext
 from os import getcwd
 from glob import glob
@@ -20,7 +20,7 @@ class Parser:
     Select Markdown Files
     """
     def SelectDirectory(self):
-        self.promptFiles = filedialog.askopenfilenames(initialdir=getcwd())
+        self.promptFiles = askopenfilenames(initialdir=getcwd())
         text = "1 file is selected" if len(self.promptFiles) == 1 else f"{len(self.promptFiles)} files are selected"
         self.directoryLabel.configure(text=text)
 
@@ -61,7 +61,7 @@ class Parser:
         Check if there are no files selected
         """
         if self.promptFiles is None:
-            self.textLabel.configure(text=f"Please Select At Least One File")
+            self.textLabel.configure(text="Please Select At Least One File")
             return
         
         """
@@ -79,7 +79,7 @@ class Parser:
         self.SelectTranslator()
         
         for promptFile in self.promptFiles:
-            if(exists(promptFile) == False):
+            if exists(promptFile) == False:
                 self.textLabel.configure(text=f"{promptFile} is not exists | Skipping ...")
                 continue
             
@@ -193,7 +193,7 @@ class Parser:
                 negativeStr = negativeStr + line
 
         """
-        Delete comma and white ', ' space which is added in preprocess stage from the last of the line
+        Delete comma and white space ', ' which is added in preprocess stage from the last of the line
         """
         positiveStr = positiveStr[:-2]
         negativeStr = negativeStr[:-2]
