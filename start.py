@@ -11,24 +11,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     startup = Startup()
+    startup.CreateVenv(args.no_check)
+
+    if args.update:
+        startup.UpdateVenv()
+
+    if args.reinstall:
+        startup.ReInstallVenv()
 
     if args.gui:
-        startup.CreateGUIVenv(args.no_check)
-
-        if args.update:
-            startup.UpdateGUIVenv()
-    
-        if args.reinstall:
-            startup.ReInstallGUIVenv()
-
         startup.StartGUI()
     elif args.cli:
-        startup.CreateCLIVenv(args.no_check)
-
-        if args.update:
-            startup.UpdateCLIVenv()
-    
-        if args.reinstall:
-            startup.ReInstallCLIVenv()
-
         startup.StartCLI()

@@ -32,6 +32,9 @@
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates
+## Update Date : 11/05/2023
+- Virtual environment is gathered into one "venv" folder.
+
 ## Update Date : 04/05/2023
 - CLI application is added.
 - Auto-complete with ```TAB``` button functionality is added.
@@ -90,7 +93,7 @@
 
 # CLI Application
 
-- Start the application with ```python start.py --cli``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the CLI application.
+- Start the application with ```python start.py --cli``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. After the first setup, it is just going to start the CLI application.
 - There are 8 commands in the main menu. These are parse, create, train, evaluate, generate, clear, cls and exit. With first 5 commands you can access to different menus. With clear and cls commands you can clear the terminal. With exit command you can terminate the application.
 - You do not have to write all the commands you can write first 2 or 3 letters and press ```TAB``` button for auto complete.
 
@@ -148,7 +151,7 @@
 
 # GUI Application
 
-- Start the application with ```python start.py --gui``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. It will take minutes so please be patient. After the first setup, it is just going to start the GUI application.
+- Start the application with ```python start.py --gui``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. After the first setup, it is just going to start the GUI application.
 
 ## Parser Tab
 - You can choose ***Translate Prompts*** checkbox to translate your prompts to English. You can write prompts in a mixture of English and your native language. GoogleTranslator is used for translation. This checkbox works with ***Parse All Files In 'prompts' Folder*** and ***Parse And Save*** functionalities.
