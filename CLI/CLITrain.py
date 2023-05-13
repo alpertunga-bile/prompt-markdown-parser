@@ -8,14 +8,14 @@ class CLITrain:
     datasetPath = ""
 
     def Start(self):
-        self.datasetPath = input("Dataset Path : ")
+        self.datasetPath = input("Train> Dataset Path : ")
         while exists(self.datasetPath) is False:
-            print(f"{self.datasetPath} is not exists. Please enter a valid path!")
-            self.datasetPath = input("Dataset Path : ")
-        self.modelName = input("Model Name (E.g. gpt2) : ")
-        self.epochs = int(input("Epochs : "))
-        self.batchSize = int(input("Batch Size : "))
-        self.modelFolder = input("Model Save Folder : ")
+            print(f"Train> {self.datasetPath} is not exists. Please enter a valid path!")
+            self.datasetPath = input("Train> Dataset Path : ")
+        self.modelName = input("Train> Model Name (E.g. gpt2) : ")
+        self.epochs = int(input("Train> Epochs : "))
+        self.batchSize = int(input("Train> Batch Size : "))
+        self.modelFolder = input("Train> Model Save Folder : ")
         self.Train()
 
     def Train(self):
@@ -37,4 +37,4 @@ class CLITrain:
         model.train(self.datasetPath, args=args)
         model.save(f"dataset/{self.modelFolder}")
         
-        print("DONE!!!")
+        print("Train> DONE!!!")

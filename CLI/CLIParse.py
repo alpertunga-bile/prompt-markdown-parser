@@ -14,12 +14,12 @@ class CLIParse:
 
     def Start(self):
         set_completer(ParserOperationComplete)
-        operation = input("(Parse) Choose an operation [allParse|parse|exit] : ")
+        operation = input("Parse> Choose an operation [allParse|parse|exit] : ")
 
         if operation == 'allParse':
             self.ParseAllFiles()
         elif operation == 'parse':
-            filename = input("File path : ")
+            filename = input("Parse> File path : ")
             self.promptFiles.append(filename)
             self.Run()
             self.promptFiles.clear()
@@ -27,28 +27,28 @@ class CLIParse:
             return
         else:
             while operation != 'allParse' and operation != 'parse' and operation != 'exit':
-                print("Invalid command")
-                operation = input("Choose an operation [allParse|parse] : ")
+                print("Parse> Invalid command")
+                operation = input("Parse> Choose an operation [allParse|parse] : ")
         
     def ParseAllFiles(self):
         fastPath = join(getcwd(), "prompts")
         if(exists(fastPath) == False):
-            print("There is no folder named 'prompts'")
+            print("Parse> There is no folder named 'prompts'")
             return
         self.promptFiles = glob(f"{fastPath}\*.md")
-        print(f"{len(self.promptFiles)} files are found ...")
+        print(f"Parse> {len(self.promptFiles)} files are found ...")
         self.Run()
 
     def Run(self):
         if self.promptFiles is None:
-            print("Please Select At Least One File")
+            print("Parse> Please Select At Least One File")
             return
 
         set_completer(YesNoComplete)
-        translate = input("Do you want to translate [yes|no] : ")
+        translate = input("Parse> Do you want to translate [yes|no] : ")
         while translate != 'yes' and translate != 'no':
-            print("Invalid Command")
-            translate = input("Do you want to translate [yes|no] : ")
+            print("Parse> Invalid Command")
+            translate = input("Parse> Do you want to translate [yes|no] : ")
 
         self.isTranslate = True if translate == 'yes' else False
         if self.isTranslate:
@@ -56,13 +56,13 @@ class CLIParse:
 
         for promptFile in tqdm(self.promptFiles, desc="Parsing Files"):
             if exists(promptFile) == False:
-                print(f"{promptFile} is not exists | Skipping ...")
+                print(f"Parse> {promptFile} is not exists | Skipping ...")
                 continue
 
             self.ParseAndSave(promptFile)
 
         self.translator = None
-        print("DONE!!!")
+        print("Parse> DONE!!!")
 
     def ParseAndSave(self, promptFile):
         file = open(promptFile, "r")

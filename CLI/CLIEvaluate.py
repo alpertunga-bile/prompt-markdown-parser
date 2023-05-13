@@ -6,15 +6,15 @@ class CLIEvaluate:
     datasetPath = ""
 
     def Start(self):
-        self.datasetPath = input("Dataset Path : ")
+        self.datasetPath = input("Evaluate> Dataset Path : ")
         while exists(self.datasetPath) is False:
-            print(f"{self.datasetPath} is not exists. Please enter a valid path!")
-            self.datasetPath = input("Dataset Path : ")
-        self.modelName = input("Model Name (E.g. gpt2) : ")
-        self.modelPath = input("Model Folder Path : ")
+            print(f"Evaluate> {self.datasetPath} is not exists. Please enter a valid path!")
+            self.datasetPath = input("Evaluate> Dataset Path : ")
+        self.modelName = input("Evaluate> Model Name (E.g. gpt2) : ")
+        self.modelPath = input("Evaluate> Model Folder Path : ")
         while exists(self.modelPath) is False:
-            print(f"{self.modelPath} is not exists. Please enter a valid path!")
-            self.modelPath = input("Model Folder Path : ")
+            print(f"Evaluate> {self.modelPath} is not exists. Please enter a valid path!")
+            self.modelPath = input("Evaluate> Model Folder Path : ")
         self.Evaluate()
 
     def Evaluate(self):
@@ -27,4 +27,4 @@ class CLIEvaluate:
 
         model = HappyGeneration(upperModelName, self.modelName, load_path=self.modelPath)
         result = model.eval(self.datasetPath)
-        print(f"Evaluation Score (Loss) : {result.loss}")
+        print(f"Evaluate> Evaluation Score (Loss) : {result.loss}")

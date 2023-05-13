@@ -10,12 +10,12 @@ class CLICreate:
     negativeFilename = ""
 
     def Start(self):
-        self.datasetPath = input("Dataset Path : ")
+        self.datasetPath = input("Create> Dataset Path : ")
         while exists(self.datasetPath) is False:
-            print(f"{self.datasetPath} is not exists. Please enter a valid path!")
-            self.datasetPath = input("Dataset Path : ")
-        self.positiveFilename = input("Positive Filename : ")
-        self.negativeFilename = input("Negative Filename : ")
+            print(f"Create> {self.datasetPath} is not exists. Please enter a valid path!")
+            self.datasetPath = input("Create> Dataset Path : ")
+        self.positiveFilename = input("Create> Positive Filename : ")
+        self.negativeFilename = input("Create> Negative Filename : ")
         self.Create()
 
     def Create(self):
@@ -23,7 +23,7 @@ class CLICreate:
         promptLinks = linksFile.readlines()
 
         if len(promptLinks) == 0:
-            self.infoLabel.configure(text="There are no links in the file")
+            print("Create> There are no links in the file")
             return
 
         positivePrompts = []
@@ -49,7 +49,7 @@ class CLICreate:
             negativePrompts = negativeFile.readlines()
             negativeFile.close()
 
-        for promptLink in tqdm(promptLinks, desc="Getting and Writing Prompts"):
+        for promptLink in tqdm(promptLinks, desc="Create> Getting and Writing Prompts"):
             info = requests.get(promptLink).text
             soup = bs(info, "lxml")
             prompts = soup.findAll("pre", {"class":"mantine-Code-root mantine-Code-block mantine-2v44jn"})
@@ -81,7 +81,7 @@ class CLICreate:
         positiveFile.close()
         negativeFile.close()
 
-        print("DONE !!!")
+        print("Create> DONE !!!")
 
     def Preprocess(self, line):
         tempLine = line.replace("\n", "")

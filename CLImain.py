@@ -1,5 +1,6 @@
 from CLI.Utility import ClearTerminal, MainOperationComplete
 from CLI.CLIParse import CLIParse
+from CLI.CLICivitai import CLICivitai
 from CLI.CLICreate import CLICreate
 from CLI.CLITrain import CLITrain
 from CLI.CLIEvaluate import CLIEvaluate
@@ -10,7 +11,7 @@ if __name__ == "__main__":
     ClearTerminal()
     parse_and_bind("tab: complete")
     set_completer(MainOperationComplete)
-    operation = input("Select an operation [parse|create|train|evaluate|generate|clear|cls|exit] : ")
+    operation = input("Main> Select an operation [parse|create|civitai|train|evaluate|generate|clear|cls|exit] : ")
     
     while 1:
         if operation == 'parse':
@@ -23,6 +24,10 @@ if __name__ == "__main__":
         elif operation == 'create':
             cliCreate = CLICreate()
             cliCreate.Start()
+            operation=''
+        elif operation == 'civitai':
+            cliCivitai = CLICivitai()
+            cliCivitai.Start()
             operation=''
         elif operation == 'train':
             cliTrain = CLITrain()
@@ -40,4 +45,4 @@ if __name__ == "__main__":
             operation=''
         else:
             set_completer(MainOperationComplete)
-            operation = input("Select an operation [parse|create|train|evaluate|generate|clear|cls|exit] : ")
+            operation = input("Main> Select an operation [parse|create|civitai|train|evaluate|generate|clear|cls|exit] : ")

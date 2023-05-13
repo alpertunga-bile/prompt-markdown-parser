@@ -13,18 +13,18 @@ class CLIGenerate:
     selfRecursive = False
 
     def Start(self):
-        self.modelName = input("Model Name (E.g. gpt2) : ")
-        self.modelFolder = input("Model Folder Path : ")
+        self.modelName = input("Generate> Model Name (E.g. gpt2) : ")
+        self.modelFolder = input("Generate> Model Folder Path : ")
         while exists(self.modelFolder) is False:
-            print(f"{self.modelFolder} is not exists. Please enter a valid path!")
-            self.modelFolder = input("Model Folder Path : ")
+            print(f"Generate> {self.modelFolder} is not exists. Please enter a valid path!")
+            self.modelFolder = input("Generate> Model Folder Path : ")
         set_completer(YesNoComplete)
-        self.minLength = int(input("Min Length : "))
-        self.maxLength = int(input("Max Length : "))
-        self.doSample = True if input("Do Sample [yes|no] : ") == 'yes' else False
-        self.earlyStop = True if input("Early Stopping [yes|no] : ") == 'yes' else False
-        self.recursiveLevel = int(input("Recursive Level : "))
-        self.selfRecursive = True if input("Self Recursive [yes|no] : ") == 'yes' else False
+        self.minLength = int(input("Generate> Min Length : "))
+        self.maxLength = int(input("Generate> Max Length : "))
+        self.doSample = True if input("Generate> Do Sample [yes|no] : ") == 'yes' else False
+        self.earlyStop = True if input("Generate> Early Stopping [yes|no] : ") == 'yes' else False
+        self.recursiveLevel = int(input("Generate> Recursive Level : "))
+        self.selfRecursive = True if input("Generate> Self Recursive [yes|no] : ") == 'yes' else False
         self.Generate()
 
     def GenerateText(self, seed, model, generatorArgs):
@@ -46,17 +46,17 @@ class CLIGenerate:
 
     def SetVariable(self, variableName):
         if variableName == 'minLength':
-            self.minLength = int(input("(Generate-Set) Set Min Length : "))
+            self.minLength = int(input("Generate-Set> Set Min Length : "))
         elif variableName == 'maxLength':
-            self.maxLength = int(input("(Generate-Set) Set Max Length : "))
+            self.maxLength = int(input("Generate-Set> Set Max Length : "))
         elif variableName == 'doSample':
-            self.doSample = True if input("(Generate-Set) Set Do Sample [yes|no] : ") == 'yes' else False
+            self.doSample = True if input("Generate-Set> Set Do Sample [yes|no] : ") == 'yes' else False
         elif variableName == 'earlyStop':
-            self.earlyStop = True if input("(Generate-Set) Set Early Stopping [yes|no] : ") == 'yes' else False
+            self.earlyStop = True if input("Generate-Set> Set Early Stopping [yes|no] : ") == 'yes' else False
         elif variableName == 'recursiveLevel':
-            self.recursiveLevel = int(input("(Generate-Set) Set Recursive Level : "))
+            self.recursiveLevel = int(input("Generate-Set> Set Recursive Level : "))
         elif variableName == 'selfRecursive':
-            self.selfRecursive = True if input("(Generate-Set) Set Self Recursive [yes|no] : ") == 'yes' else False
+            self.selfRecursive = True if input("Generate-Set> Set Self Recursive [yes|no] : ") == 'yes' else False
 
     def PrintVariables(self):
         print(f"Model Name      : {self.modelName}")
@@ -80,7 +80,7 @@ class CLIGenerate:
 
         while 1:
             set_completer(GenerateOrSetComplete)
-            operation = input("(Generate) Select an operation [generate|set|print|clear|cls|exit] : ")
+            operation = input("Generate> Select an operation [generate|set|print|clear|cls|exit] : ")
 
             if operation == 'generate':
                 generatorArgs = GENSettings(
@@ -90,15 +90,15 @@ class CLIGenerate:
                     early_stopping=self.earlyStop
                 )
 
-                seed = input("Enter seed : ")
+                seed = input("Generate> Enter seed : ")
                 generatedText = self.GenerateText(seed, model, generatorArgs)
                 
-                print(f"Generated Text : {generatedText}")
+                print(f"Generate> Generated Text : {generatedText}")
             if operation == 'print':
                 self.PrintVariables()
             elif operation == 'set':
                 set_completer(SelectVariableToSet)
-                variableName = input("(Generate) Choose A Variable To Set [minLength|maxLength|doSample|earlyStop|recursiveLevel|selfRecursive] : ")
+                variableName = input("Generate> Choose A Variable To Set [minLength|maxLength|doSample|earlyStop|recursiveLevel|selfRecursive] : ")
                 self.SetVariable(variableName)
             elif operation == 'clear' or operation == 'cls':
                 ClearTerminal()
