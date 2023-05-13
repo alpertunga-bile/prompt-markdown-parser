@@ -14,6 +14,7 @@
 - [Usage](https://github.com/alpertunga-bile/prompt-markdown-parser#usage)
     - [CLI Application](https://github.com/alpertunga-bile/prompt-markdown-parser#cli-application)
       - [Parse Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#parse-menu)
+      - [Civitai Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#civitai-menu)
       - [Create Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#create-menu)
       - [Train Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#train-menu)
       - [Evaluate Menu](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-menu)
@@ -31,7 +32,11 @@
     - [Parser Example](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-example)
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
-# Updates
+# Updates (DD/MM/YY)
+## Update Date : 13/05/2023
+- Civitai functionality is added.
+- New texts have been added to understand what action is currently being taken.
+
 ## Update Date : 11/05/2023
 - Virtual environment is gathered into one "venv" folder.
 
@@ -101,6 +106,13 @@
 - In parse section there are 3 commands, allParse, parse and exit. You can use ```TAB``` button here.
 - You have to have ```prompts``` folder to continue with allParse command. It will found all .md files under ```prompts``` folder and print the total files it can found. After that it is going to ask you to want to translate. You can use auto complete functionality here. Then it is going to parse all files and write them under ```prompts``` folder.
 - In parse command. You specify a filepath to parse and it is going to ask translation and after that it is going to parsed and saved to the same folder with .md file.
+
+## Civitai Menu
+- There are three functionalities you can use.
+- [x] Files have to be in ```dataset``` folder and just write the filename not path.
+- Enhance functionality is for creating dataset. You can specify positive and negative filenames. Then you can specify image limit in [1, 200] range. Then specify number page to start and end. Specify wanted and unwanted prompts with comma seperated. You can use default prompts. Select sort, period and nsfw parameters.
+- Prune functionality is for clearing duplicates in files. Enter your filenames and wait for "Done!!!" text to show.
+- Frequency functionality is for looking how many times a word is used. Specify filename and when it is done look for ```dataset/frequency.txt``` file.
 
 ## Create Menu
 - In the create menu, you have to give dataset path. So how to create dataset file? It is quite easy actually, go to CivitAi site and find images you like. Then copy their link and paste in a txt file. 
