@@ -3,22 +3,25 @@ from os import getcwd
 from glob import glob 
 from tqdm import tqdm
 from deep_translator import GoogleTranslator
-from readline import set_completer
-
-from CLI.Utility import ParserOperationComplete, YesNoComplete
+from Completer import Completer
 
 class CLIParse:
     promptFiles = []
     isTranslate = False
     translator = None
+    completer = None
+
+    def __init__(self, completer : Completer):
+        self.completer = completer
 
     def Start(self):
-        set_completer(ParserOperationComplete)
+        self.completer.SetCompleteFunction("parserOperation")
         operation = input("Parse> Choose an operation [allParse|parse|exit] : ")
 
         if operation == 'allParse':
             self.ParseAllFiles()
         elif operation == 'parse':
+            self.completer.SetCompleteFunction("currentFilesAndFolders")
             filename = input("Parse> File path : ")
             self.promptFiles.append(filename)
             self.Run()
@@ -28,7 +31,7 @@ class CLIParse:
         else:
             while operation != 'allParse' and operation != 'parse' and operation != 'exit':
                 print("Parse> Invalid command")
-                operation = input("Parse> Choose an operation [allParse|parse] : ")
+                operation = input("Parse> Choose an operation [allParse|parse|exit] : ")
         
     def ParseAllFiles(self):
         fastPath = join(getcwd(), "prompts")
@@ -44,7 +47,7 @@ class CLIParse:
             print("Parse> Please Select At Least One File")
             return
 
-        set_completer(YesNoComplete)
+        self.completer.SetCompleteFunction("yesOrNo")
         translate = input("Parse> Do you want to translate [yes|no] : ")
         while translate != 'yes' and translate != 'no':
             print("Parse> Invalid Command")

@@ -2,14 +2,20 @@ from re import sub
 from os.path import exists
 from tqdm import tqdm
 from bs4 import BeautifulSoup as bs
+from Completer import Completer
 import requests
 
 class CLICreate:
     datasetPath = ""
     positiveFilename = ""
     negativeFilename = ""
+    completer = None
+
+    def __init__(self, completer : Completer):
+        self.completer = completer
 
     def Start(self):
+        self.completer.SetCompleteFunction("currentFilesAndFolders")
         self.datasetPath = input("Create> Dataset Path : ")
         while exists(self.datasetPath) is False:
             print(f"Create> {self.datasetPath} is not exists. Please enter a valid path!")

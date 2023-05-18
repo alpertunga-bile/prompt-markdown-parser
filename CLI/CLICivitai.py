@@ -5,8 +5,8 @@ from collections import Counter
 from string import punctuation
 from os.path import exists
 from tqdm import tqdm
-from readline import set_completer
-from CLI.Utility import *
+from Completer import Completer
+from CLI.Utility import ClearTerminal, Clamp
 import gc
 
 class CLICivitai:
@@ -15,54 +15,54 @@ class CLICivitai:
     negativeFilename = ""
     wantedPrompts = ["beautiful", "female", "breasts", "woman", "girl", "masterpiece"]
     unwantedPrompts = ["obese", "fat", "ugly", "weird", "creepy", "loli", "old woman", "old", "child", "creature", "kid"]
+    completer = None
 
-    def __init__(self):
+    def __init__(self, completer : Completer):
         url = f"https://civitai.com/api/v1/images?limit=1"
         header = {"content-type":"application.json"}
         jsonFile = loads(get(url, headers=header).text)
         self.maxPage = int(jsonFile['metadata']['totalPages'])
+        self.completer = completer
 
     def Start(self):
-        set_completer(CreatorOperationComplete)
+        self.completer.SetCompleteFunction("creatorOperation")
         operation = ''
         while 1:
             if operation == 'enhance':
-                self.positiveFilename = f"Civitai> dataset/{input('Positive Filename : ')}.txt"
-                self.negativeFilename = f"Civitai> dataset/{input('Negative Filename : ')}.txt"
+                self.positiveFilename = f"dataset/{input('Positive Filename : ')}.txt"
+                self.negativeFilename = f"dataset/{input('Negative Filename : ')}.txt"
                 limit = int(input("Civitai> Image limit [1, 200] : "))
                 minPage = Clamp(int(input("Civitai> Which page number to start : ")), 1, self.maxPage)
                 maxPage = Clamp(int(input("Civitai> Which page to end : ")) + 1, minPage + 1, self.maxPage)
+                print(f"Current Wanted Prompts Are [{', '.join(self.wantedPrompts)}]")
                 wantedPrompts = input("Civitai> Write Your Wanted Prompts Seperate With Comma (or write none to use default): ")
-                
-                print(', '.join(self.wantedPrompts))
 
                 if wantedPrompts != "none":
                     self.wantedPrompts = wantedPrompts.split(",")
 
+                print(f"Current Unwanted Prompts Are {', '.join(self.unwantedPrompts)}")
                 unwantedPrompts = input("Civitai> Write Your Unwanted Prompts Seperate With Comma (or write none to use default): ")
 
                 if unwantedPrompts != "none":
                     self.unwantedPrompts = unwantedPrompts.split(",")
 
-                print(', '.join(self.unwantedPrompts))
-
-                set_completer(CreatorSortComplete)
+                self.completer.SetCompleteFunction("createSort")
                 sort = input("Civitai> Select Sort [most_reactions, most_comments, newest] : ").replace("_", "+").title()
-                set_completer(CreatorPeriodComplete)
+                self.completer.SetCompleteFunction("creatorPeriod")
                 period = input("Civitai> Select Period [allTime, year, month, week, day] : ").capitalize().replace("t", "T")
-                set_completer(CreatorNSFWComplete)
+                self.completer.SetCompleteFunction("creatorNSFW")
                 nsfw = input("Civitai> Select NSFW [none, soft, mature, x] : ").capitalize()
                 url = f"https://civitai.com/api/v1/images?limit={limit}&sort={sort}&period={period}&nsfw={nsfw}&page="
                 
                 self.EnhanceDataset(minPage, maxPage, url)
                 operation = ''
             elif operation == 'prune':
-                self.positiveFilename = input("Civitai> Positive Filename : ") + ".txt"
-                self.negativeFilename = input("Civitai> Negative Filename : ") + ".txt"
+                self.positiveFilename = f"dataset/{input('Positive Filename : ')}.txt"
+                self.negativeFilename = f"dataset/{input('Negative Filename : ')}.txt"
                 self.PruneFiles()
                 operation = ''
             elif operation == 'frequency':
-                filename = input("Civitai> Filename : ") + ".txt"
+                filename = f"dataset/{input('Civitai> Filename : ')}.txt"
                 self.FindWordFrequencies(filename)
                 operation = ''
             elif operation == 'cls' or operation == 'clear':
@@ -71,6 +71,7 @@ class CLICivitai:
             elif operation == 'exit':
                 return
             else:
+                self.completer.SetCompleteFunction("creatorOperation")
                 operation = input("Civitai> Select an operation [enhance|prune|frequency|clear|cls|exit] : ")
         return
 
@@ -187,6 +188,8 @@ class CLICivitai:
         negativeFile.writelines(negativePrompts)
         negativeFile.close()
 
+        print("Civitai> Done!!!")
+
     def FindWordFrequencies(self, filename):
         file = open(filename, "r")
         fileStr = file.read()
@@ -198,6 +201,8 @@ class CLICivitai:
         with open("dataset/frequencies.txt", "w") as f:
             for key, value in counts.items():
                 f.write(f'{key} : {value}\n')
+
+        print("Civitai> Done!!!")
 
     def Preprocess(self, line):
         tempLine = line.encode("ascii", "ignore")

@@ -1,32 +1,45 @@
-from CLI.Utility import ClearTerminal, MainOperationComplete
+from CLI.Utility import ClearTerminal
 from CLI.CLIParse import CLIParse
 from CLI.CLICivitai import CLICivitai
 from CLI.CLICreate import CLICreate
 from CLI.CLITrain import CLITrain
 from CLI.CLIEvaluate import CLIEvaluate
 from CLI.CLIGenerate import CLIGenerate
-from readline import parse_and_bind, set_completer
+from Completer import Completer
+
+def AddFunctions(completer : Completer):
+    completer.CreateCompleteFunction("mainOperation", ['parse', 'clear', 'cls', 'create', 'civitai', 'train', 'evaluate', 'exit', 'generate'])
+    completer.CreateCompleteFunction("parserOperation", ['allParse', 'exit', 'parse'])
+    completer.CreateCurrentDirectoryFilesAndFoldersCompleteFunction("currentFilesAndFolders")
+    completer.CreateCompleteFunction("yesOrNo", ['yes', 'no'])
+    completer.CreateCompleteFunction("generateOrSet", ['generate', 'set', 'exit', 'clear', 'cls', 'print'])
+    completer.CreateCompleteFunction("selectVariableToSet", ['minLength', 'maxLength', 'doSample', 'earlyStop', 'recursiveLevel', 'selfRecursive'])
+    completer.CreateCompleteFunction("creatorOperation", ['enhance', 'prune', 'frequency', 'clear', 'cls', 'exit'])
+    completer.CreateCompleteFunction("creatorNSFW", ['none', 'soft', 'mature', 'x'])
+    completer.CreateCompleteFunction("createSort", ['most_reactions', 'most_comments', 'newest'])
+    completer.CreateCompleteFunction("creatorPeriod", ['allTime', 'year', 'month', "week", "day"])
 
 if __name__ == "__main__":
     ClearTerminal()
-    parse_and_bind("tab: complete")
-    set_completer(MainOperationComplete)
+    completer = Completer()
+    AddFunctions(completer)
+    completer.SetCompleteFunction("mainOperation")
     operation = input("Main> Select an operation [parse|create|civitai|train|evaluate|generate|clear|cls|exit] : ")
     
     while 1:
         if operation == 'parse':
-            cliParse = CLIParse()
+            cliParse = CLIParse(completer)
             cliParse.Start()
             operation=''
         elif operation == 'clear' or operation == 'cls':
             ClearTerminal()
             operation=''
         elif operation == 'create':
-            cliCreate = CLICreate()
+            cliCreate = CLICreate(completer)
             cliCreate.Start()
             operation=''
         elif operation == 'civitai':
-            cliCivitai = CLICivitai()
+            cliCivitai = CLICivitai(completer)
             cliCivitai.Start()
             operation=''
         elif operation == 'train':
@@ -40,9 +53,9 @@ if __name__ == "__main__":
         elif operation == 'exit':
             exit(0)
         elif operation == 'generate':
-            cliGenerate = CLIGenerate()
+            cliGenerate = CLIGenerate(completer)
             cliGenerate.Start()
             operation=''
         else:
-            set_completer(MainOperationComplete)
+            completer.SetCompleteFunction("mainOperation")
             operation = input("Main> Select an operation [parse|create|civitai|train|evaluate|generate|clear|cls|exit] : ")

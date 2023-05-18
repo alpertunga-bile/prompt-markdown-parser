@@ -1,6 +1,6 @@
 from os.path import exists
-from readline import set_completer
-from CLI.Utility import YesNoComplete, GenerateOrSetComplete, ClearTerminal, SelectVariableToSet
+from Completer import Completer
+from CLI.Utility import ClearTerminal
 
 class CLIGenerate:
     minLength = 10
@@ -11,6 +11,10 @@ class CLIGenerate:
     modelName = ""
     recursiveLevel = 0
     selfRecursive = False
+    completer = None
+
+    def __init__(self, completer : Completer):
+        self.completer = completer
 
     def Start(self):
         self.modelName = input("Generate> Model Name (E.g. gpt2) : ")
@@ -18,12 +22,15 @@ class CLIGenerate:
         while exists(self.modelFolder) is False:
             print(f"Generate> {self.modelFolder} is not exists. Please enter a valid path!")
             self.modelFolder = input("Generate> Model Folder Path : ")
-        set_completer(YesNoComplete)
+        self.completer.SetCompleteFunction("yesOrNo")
         self.minLength = int(input("Generate> Min Length : "))
         self.maxLength = int(input("Generate> Max Length : "))
+        self.completer.SetCompleteFunction("yesOrNo")
         self.doSample = True if input("Generate> Do Sample [yes|no] : ") == 'yes' else False
+        self.completer.SetCompleteFunction("yesOrNo")
         self.earlyStop = True if input("Generate> Early Stopping [yes|no] : ") == 'yes' else False
         self.recursiveLevel = int(input("Generate> Recursive Level : "))
+        self.completer.SetCompleteFunction("yesOrNo")
         self.selfRecursive = True if input("Generate> Self Recursive [yes|no] : ") == 'yes' else False
         self.Generate()
 
@@ -79,7 +86,7 @@ class CLIGenerate:
         model = HappyGeneration(upperModelName, self.modelName, load_path=self.modelFolder)
 
         while 1:
-            set_completer(GenerateOrSetComplete)
+            self.completer.SetCompleteFunction("generateOrSet")
             operation = input("Generate> Select an operation [generate|set|print|clear|cls|exit] : ")
 
             if operation == 'generate':
@@ -97,7 +104,7 @@ class CLIGenerate:
             if operation == 'print':
                 self.PrintVariables()
             elif operation == 'set':
-                set_completer(SelectVariableToSet)
+                self.completer.SetCompleteFunction("selectVariableToSet")
                 variableName = input("Generate> Choose A Variable To Set [minLength|maxLength|doSample|earlyStop|recursiveLevel|selfRecursive] : ")
                 self.SetVariable(variableName)
             elif operation == 'clear' or operation == 'cls':

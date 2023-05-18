@@ -118,6 +118,9 @@ class Startup:
         if exists("dataset") is False:
             mkdir("dataset")
 
+        if exists("prompts") is False:
+            mkdir("prompts")
+
         print("Starting CLI ...")
         cliCommand = self.GetStartCLICommand()
         result = call(cliCommand, shell=True)
