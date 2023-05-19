@@ -182,7 +182,7 @@
 - Write positive and negative filenames as you want to name them.
 - Click ***Create Dataset*** button and wait. You can watch the progress with progressbar in GUI and in terminal.
 ## Civitai Tab
-- Locate ```wantedPrompts.txt``` and ```unwantedPrompts.txt``` files under dataset folder and change for wanted and unwanted prompts.
+- Locate ```wantedPrompts.txt``` and ```unwantedPrompts.txt``` files under dataset folder and change for wanted and unwanted prompts. Seperate your prompts with comma.
 - Give positive and negative filenames for dataset. Do not give path. Files are going to be created in dataset folder.
 - Select attributes.
 - Select ```All``` for NSFW if you want to get all images.
