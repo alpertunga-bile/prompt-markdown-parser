@@ -25,6 +25,7 @@
     - [GUI Application](https://github.com/alpertunga-bile/prompt-markdown-parser#gui-application)
       - [Parser Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-tab)
       - [Dataset Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#dataset-tab)
+      - [Civitai Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#civitai-tab)
       - [Train Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#train-tab)
       - [Evaluate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-tab)
       - [Generate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-tab)
@@ -175,11 +176,17 @@
 - After the selection press ***Parse And Save*** button and it's done. You can find your text files in the folder where are your selected Markdown files. You can see that it seperates negative and positive prompts with ***_negative*** and ***_positive*** names.
 - DO NOT EDIT ***Positive Prompts*** and ***Negative Prompts*** strings in Markdown files. These are used to seperate prompts. You can add or reduce # symbol but do not edit the strings.
 - DO NOT ADD comma "," at the end of your rows. Parser is adding for you.
-### Dataset Tab
+## Dataset Tab
 - Save prompt links in a txt file. Just select image from CivitAi and copy and paste its link into a txt file. 
 - Choose your link dataset which is provided in txt file.
 - Write positive and negative filenames as you want to name them.
 - Click ***Create Dataset*** button and wait. You can watch the progress with progressbar in GUI and in terminal.
+## Civitai Tab
+- Locate ```wantedPrompts.txt``` and ```unwantedPrompts.txt``` files under dataset folder and change for wanted and unwanted prompts.
+- Give positive and negative filenames for dataset. Do not give path. Files are going to be created in dataset folder.
+- Select attributes.
+- Select ```All``` for NSFW if you want to get all images.
+- Click ```Enhance``` button and wait for loading bar to complete in terminal then check dataset folder.
 ## Train Tab
 - Enter your model name. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation).
 - Enter epochs, batch size.
