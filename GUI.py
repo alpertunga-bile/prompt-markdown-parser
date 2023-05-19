@@ -3,6 +3,7 @@ from PIL import Image
 
 from Tabs.ParseTab import ParseTab
 from Tabs.DatasetTab import DatasetTab
+from Tabs.CivitaiTab import CivitaiTab
 from Tabs.TrainTab import TrainTab
 from Tabs.EvaluateTab import EvaluateTab
 from Tabs.GenerateTab import GenerateTab
@@ -13,6 +14,7 @@ class GUI:
     tabview = None
     parseTab = None
     datasetTab = None
+    civitaiTab = None
     trainTab = None
     evaluateTab = None
     generateTab = None
@@ -60,6 +62,7 @@ class GUI:
 
         self.parseTab = ParseTab(self.window, self.tabview.add("Parse"))
         self.datasetTab = DatasetTab(self.window, self.tabview.add("Dataset"))
+        self.civitaiTab = CivitaiTab(self.window, self.tabview.add("Civitai"))
         self.trainTab = TrainTab(self.window, self.tabview.add("Train"))
         self.evaluateTab = EvaluateTab(self.window, self.tabview.add("Evaluate"))
         self.generateTab = GenerateTab(self.window, self.tabview.add("Generate"))

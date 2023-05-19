@@ -11,6 +11,7 @@ import gc
 
 class CLICivitai:
     maxPage = 0
+    imageLimit = 0
     positiveFilename = ""
     negativeFilename = ""
     wantedPrompts = ["beautiful", "female", "breasts", "woman", "girl", "masterpiece"]
@@ -31,7 +32,7 @@ class CLICivitai:
             if operation == 'enhance':
                 self.positiveFilename = f"dataset/{input('Positive Filename : ')}.txt"
                 self.negativeFilename = f"dataset/{input('Negative Filename : ')}.txt"
-                limit = int(input("Civitai> Image limit [1, 200] : "))
+                self.imageLimit = int(input("Civitai> Image limit [1, 200] : "))
                 minPage = Clamp(int(input("Civitai> Which page number to start : ")), 1, self.maxPage)
                 maxPage = Clamp(int(input("Civitai> Which page to end : ")) + 1, minPage + 1, self.maxPage)
                 print(f"Current Wanted Prompts Are [{', '.join(self.wantedPrompts)}]")
@@ -51,8 +52,12 @@ class CLICivitai:
                 self.completer.SetCompleteFunction("creatorPeriod")
                 period = input("Civitai> Select Period [allTime, year, month, week, day] : ").capitalize().replace("t", "T")
                 self.completer.SetCompleteFunction("creatorNSFW")
-                nsfw = input("Civitai> Select NSFW [none, soft, mature, x] : ").capitalize()
-                url = f"https://civitai.com/api/v1/images?limit={limit}&sort={sort}&period={period}&nsfw={nsfw}&page="
+                nsfw = input("Civitai> Select NSFW [none, soft, mature, x, all] : ").capitalize()
+                url = ""
+                if nsfw == "All":
+                    url = f"https://civitai.com/api/v1/images?limit={self.imageLimit}&sort={sort}&period={period}&page="
+                else:
+                    url = f"https://civitai.com/api/v1/images?limit={self.imageLimit}&sort={sort}&period={period}&nsfw={nsfw}&page="
                 
                 self.EnhanceDataset(minPage, maxPage, url)
                 operation = ''
@@ -91,9 +96,12 @@ class CLICivitai:
 
         for pageNumber in tqdm(range(min, max), desc="Civitai> Getting Data From Pages"):
             url = givenUrl + str(pageNumber)
-            jsonFile = loads(get(url, headers=header).text)
+            try:
+                jsonFile = loads(get(url, headers=header).text)
+            except:
+                continue
 
-            for imageIndex in range(0, 200):
+            for imageIndex in range(0, self.imageLimit + 1):
                 positive, negative = self.GetPrompts(jsonFile, imageIndex)
                 if positive is None: 
                     continue
