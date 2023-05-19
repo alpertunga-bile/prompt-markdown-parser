@@ -33,6 +33,9 @@
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates (DD/MM/YY)
+## Update Date : 19/05/2023
+- Civitai Tab is added for GUI application.
+
 ## Update Date : 13/05/2023
 - Civitai functionality is added.
 - New texts have been added to understand what action is currently being taken.
