@@ -190,28 +190,43 @@ https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/e63ea3
 - After the selection press ***Parse And Save*** button and it's done. You can find your text files in the folder where are your selected Markdown files. You can see that it seperates negative and positive prompts with ***_negative*** and ***_positive*** names.
 - DO NOT EDIT ***Positive Prompts*** and ***Negative Prompts*** strings in Markdown files. These are used to seperate prompts. You can add or reduce # symbol but do not edit the strings.
 - DO NOT ADD comma "," at the end of your rows. Parser is adding for you.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/0312764a-17bf-417a-a0d1-fee876f37129
+
 ## Dataset Tab
 - Save prompt links in a txt file. Just select image from CivitAi and copy and paste its link into a txt file. 
 - Choose your link dataset which is provided in txt file.
 - Write positive and negative filenames as you want to name them.
 - Click ***Create Dataset*** button and wait. You can watch the progress with progressbar in GUI and in terminal.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/d157c9fe-18fa-49e6-ad04-ac0e7a16be79
+
 ## Civitai Tab
 - Locate ```wantedPrompts.txt``` and ```unwantedPrompts.txt``` files under dataset folder and change for wanted and unwanted prompts. Seperate your prompts with comma.
 - Give positive and negative filenames for dataset. Do not give path. Files are going to be created in dataset folder.
 - Select attributes.
 - Select ```All``` for NSFW if you want to get all images.
 - Click ```Enhance``` button and wait for loading bar to complete in terminal then check dataset folder.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/2cd21df4-b886-43ea-9d32-2cb8988c2dad
+
 ## Train Tab
 - Enter your model name. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation).
 - Enter epochs, batch size.
 - Enter folder name for your model. Your model is going to be saved into 'dataset' folder.
 - Choose dataset to train with model.
 - Click ***Train*** button and wait for ***Done!!!*** text to appear above the button.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/d7540867-3799-4782-a95e-c3dec0a17b32
+
 ## Evaluate Tab
 - Choose your dataset which is used for training.
 - Enter your model name that you used for training. DO NOT enter the folder name of your model.
 - Choose your model's saved folder.
 - Click ***Evaluate*** button and wait for a ***Evaluation score*** output above the button.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/5fae56b9-7bdd-48f0-b618-5591319b62ab
+
 ## Generate Tab
 - Enter your model name that you used for training. DO NOT enter the folder name of your model.
 - Choose your model's saved folder.
@@ -221,6 +236,9 @@ https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/e63ea3
 - Set recursive level with slider. It is going to give model the previous result in each step.
 - Select if you want self recursive.
 - Enter your seed and click ***Generate Text*** button and wait for text to be appeared in the textbox.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/05bfd9ab-4624-4a39-bc21-d129edf2e06b
+
 ### How Recursive Works?
 - Let's say we give ```a, ``` as seed and recursive level is 1. I am going to use the same outputs for this example to understand the functionality more accurately.
 - With self recursive, let's say generator's output is ```b```. So next seed is going to be ```b``` and generator's output is ```c```. Final output is ```a, c```. It can be used for generating random outputs.
