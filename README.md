@@ -100,6 +100,8 @@
 - Clone the repository with ```git clone https://github.com/alpertunga-bile/prompt-markdown-parser.git``` command.
 - Get into folder with ```cd prompt-markdown-parser``` command.
 
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/ec9826bf-509e-4c62-8e78-952fe24db44f
+
 # CLI Application
 
 - Start the application with ```python start.py --cli``` command. This command is going to look for 'venv' file for virtual environment. It is going to setup the dependencies and start the application. After the first setup, it is just going to start the CLI application.
@@ -111,6 +113,8 @@
 - You have to have ```prompts``` folder to continue with allParse command. It will found all .md files under ```prompts``` folder and print the total files it can found. After that it is going to ask you to want to translate. You can use auto complete functionality here. Then it is going to parse all files and write them under ```prompts``` folder.
 - In parse command. You specify a filepath to parse and it is going to ask translation and after that it is going to parsed and saved to the same folder with .md file.
 
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/90fd1ef2-4626-43eb-ab2d-9a14f24b8445
+
 ## Civitai Menu
 - There are three functionalities you can use.
 - [x] Files have to be in ```dataset``` folder and just write the filename not path.
@@ -118,12 +122,16 @@
 - Prune functionality is for clearing duplicates in files. Enter your filenames and wait for "Done!!!" text to show.
 - Frequency functionality is for looking how many times a word is used. Specify filename and when it is done look for ```dataset/frequency.txt``` file.
 
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/bea3a31a-70c7-4712-ada2-8533ad2fb27f
+
 ## Create Menu
 - In the create menu, you have to give dataset path. So how to create dataset file? It is quite easy actually, go to CivitAi site and find images you like. Then copy their link and paste in a txt file. 
 - Then specify positive filename. If you have already positive dataset you can specify it too but it has to be under the dataset folder.
 - Then specify negative filename. If you have already negative dataset you can specify it too but it has to be under the dataset folder.
 - You can write with or without file extensions.
 - Aftert that wait for progress bar to finish and ```DONE !!!``` text on the terminal.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/9088dcd5-f83f-4cca-922e-3bf1e5023ebc
 
 ## Train Menu
 - Give your dataset path. Which can be your positive or negative datasets. Not the links dataset.
@@ -133,11 +141,15 @@
 - Enter model save folder name. The model is going to save under dataset folder. So just right the name of the folder you want to save.
 - Wait for ```DONE!!!``` text on the terminal.
 
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/fccdcf1a-d9cc-4def-ad06-ee0f6901102d
+
 ## Evaluate Menu
 - Give your dataset path. Which can be your positive or negative datasets. Not the links dataset.
 - Enter your model name for example ```gpt2```. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation). If you are going to use this site, write all the model names for example ```bigscience/bloom-560m```.
 - Enter the model path.
 - Wait for ```Evaluation Score (Loss)``` text on the terminal.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/74bad6c4-6122-464c-9825-3afed7266301
 
 ## Generate Menu
 - Enter your model name for example ```gpt2```. You can found the [model names](https://huggingface.co/models?pipeline_tag=text-generation). If you are going to use this site, write all the model names for example ```bigscience/bloom-560m```.
@@ -164,6 +176,8 @@
 
 ### Print Menu
 - Print the current variables values.
+
+https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/e63ea356-cc34-4ddf-99f3-a19e953374d4
 
 # GUI Application
 
