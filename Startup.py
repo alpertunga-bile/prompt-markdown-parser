@@ -16,14 +16,15 @@ class Startup:
         if self.osName == 'Linux':
             venvCommand = "pip install virtualenv && virtualenv venv && "
             venvCommand += "source venv/bin/activate && "
-            venvCommand += "pip3 install -r requirements.txt && "
-            venvCommand += "pip3 install torch torchvision torchaudio && "
+            venvCommand += "pip3 install -r requirements.txt && pip3 uninstall torch --yes && "
+            venvCommand += "pip3 install torch && "
             venvCommand += "deactivate"
         elif self.osName == 'Windows':
             venvCommand = "py -m venv venv && "
             venvCommand += ".\\venv\\Scripts\\activate.bat && "
             venvCommand += ".\\venv\\Scripts\\pip.exe install -r requirements.txt && "
-            venvCommand += ".\\venv\\Scripts\\pip.exe install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu117 && "
+            venvCommand += ".\\venv\\Scripts\\pip.exe uninstall torch --yes && "
+            venvCommand += ".\\venv\\Scripts\\pip.exe install torch --index-url https://download.pytorch.org/whl/cu117 && "
             venvCommand += ".\\venv\\Scripts\\deactivate.bat"
         
         return venvCommand
