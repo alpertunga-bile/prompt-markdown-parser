@@ -20,7 +20,7 @@ class Startup:
             venvCommand += "pip3 install torch && "
             venvCommand += "deactivate"
         elif self.osName == 'Windows':
-            venvCommand = "py -m venv venv && "
+            venvCommand = "python -m venv venv && "
             venvCommand += ".\\venv\\Scripts\\activate.bat && "
             venvCommand += ".\\venv\\Scripts\\pip.exe install -r requirements.txt && "
             venvCommand += ".\\venv\\Scripts\\pip.exe uninstall torch --yes && "
