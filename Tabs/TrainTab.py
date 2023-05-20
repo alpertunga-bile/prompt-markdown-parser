@@ -67,7 +67,7 @@ class TrainTab:
     def ChooseDataset(self):
         from tkinter.filedialog import askopenfilename
 
-        self.datasetPath = askopenfilename(initialdir=getcwd())
+        self.trainName = askopenfilename(initialdir=getcwd())
         self.datasetLabel.configure(text=self.trainName)
 
     def StartTrain(self):
