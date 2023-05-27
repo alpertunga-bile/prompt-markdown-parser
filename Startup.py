@@ -18,6 +18,7 @@ class Startup:
             venvCommand += "source venv/bin/activate && "
             venvCommand += "pip3 install -r requirements.txt && pip3 uninstall torch --yes && "
             venvCommand += "pip3 install torch --index-url https://download.pytorch.org/whl/cu118 && "
+            venvCommand += "pip3 install --upgrade accelerate && "
             venvCommand += "deactivate"
         elif self.osName == 'Windows':
             venvCommand = "python -m venv venv && "
@@ -25,6 +26,7 @@ class Startup:
             venvCommand += ".\\venv\\Scripts\\pip.exe install -r requirements.txt && "
             venvCommand += ".\\venv\\Scripts\\pip.exe uninstall torch --yes && "
             venvCommand += ".\\venv\\Scripts\\pip.exe install torch --index-url https://download.pytorch.org/whl/cu118 && "
+            venvCommand += ".\\venv\\Scripts\\pip.exe install --upgrade accelerate && "
             venvCommand += ".\\venv\\Scripts\\deactivate.bat"
         
         return venvCommand

@@ -126,4 +126,4 @@ class CLIGenerate:
 
         tempLine = ''.join(self.RemoveDuplicates(tempLine.split(",")))
 
-        return line
+        return tempLine

@@ -145,7 +145,7 @@ class GenerateTab:
 
         tempLine = ''.join(self.RemoveDuplicates(tempLine.split(",")))
 
-        return line
+        return tempLine
 
     def Generate(self):
         self.generatorTextbox.delete("0.0", "end")
