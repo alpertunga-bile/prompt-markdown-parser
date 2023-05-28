@@ -114,7 +114,7 @@ class CLIGenerate:
 
     def RemoveDuplicates(self, line):
         uniqueList = []
-        [uniqueList.append(x) for x in line if x not in uniqueList]
+        [uniqueList.append(x) for x in line if x.replace(" ", "") not in uniqueList]
         return uniqueList
 
     def Preprocess(self, line):
