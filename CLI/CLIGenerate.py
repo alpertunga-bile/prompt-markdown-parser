@@ -118,7 +118,7 @@ class CLIGenerate:
         return uniqueList
 
     def Preprocess(self, line):
-        tempLine = line.replace(u'\xa0', u', ')
+        tempLine = line.replace(u'\xa0', u' ')
         tempLine = tempLine.replace("\n", ", ")
         tempLine = tempLine.replace("  ", " ")
         tempLine = tempLine.replace("\t", " ")
