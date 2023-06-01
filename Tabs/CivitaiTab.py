@@ -178,7 +178,7 @@ class CivitaiTab:
         pageEnd = Clamp(int(self.pageNumberEndEntry.get()), pageStart + 1, self.maxPage)
 
         self.GetWantedAndUnwantedPrompts()
-        url = self.GetUrl(imageLimit)
+        baseUrl = self.GetUrl(imageLimit)
 
         positiveFilename = f"dataset/{self.positiveFilenameEntry.get()}.txt"
         negativeFilename = f"dataset/{self.negativeFilenameEntry.get()}.txt"
@@ -205,7 +205,7 @@ class CivitaiTab:
         header = {"content-type":"application.json"}
 
         for pageNumber in tqdm(range(pageStart, pageEnd), desc="Getting Data From Pages"):
-            url = url + str(pageNumber)
+            url = baseUrl + str(pageNumber)
             try:
                 jsonFile = loads(get(url, headers=header).text)
             except:
