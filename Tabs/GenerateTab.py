@@ -1,5 +1,6 @@
 from os import getcwd
 from threading import Thread
+from re import compile, sub
 
 class GenerateTab:
     parentWindow = None
@@ -131,18 +132,17 @@ class GenerateTab:
         self.Refresh()
         Thread(target=self.Generate).start()
 
-    def RemoveDuplicates(self, line):
-        uniqueList = []
-        [uniqueList.append(x) for x in line if x.replace(" ", "") not in uniqueList]
-        return uniqueList
+    def RemoveDuplicates(self, lineList):
+        return list(dict.fromkeys(lineList))
 
     def Preprocess(self, line):
+        pattern = compile(r'(,\s){2,}')
+
         tempLine = line.replace(u'\xa0', u' ')
         tempLine = tempLine.replace("\n", ", ")
         tempLine = tempLine.replace("  ", " ")
         tempLine = tempLine.replace("\t", " ")
-        tempLine = tempLine.replace(",,", ",")
-        tempLine = tempLine.replace(",, ", ", ")
+        tempLine = sub(pattern, ', ', tempLine)
 
         tempLine = ', '.join(self.RemoveDuplicates(tempLine.split(",")))
 
@@ -176,7 +176,7 @@ class GenerateTab:
         happy_gen = HappyGeneration(upperModelName, modelName, load_path=self.generatorPath)
         result = happy_gen.generate_text(seed, generatorArgs)
 
-        generatedText = self.Preprocess(result.text)
+        generatedText = self.Preprocess(seed + result.text)
 
         if selfRecursive:
             for _ in range(0, recursiveLevel):
