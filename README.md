@@ -29,6 +29,7 @@
       - [Train Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#train-tab)
       - [Evaluate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-tab)
       - [Generate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-tab)
+    - [WebUI Application](https://github.com/alpertunga-bile/prompt-tools-webui)
 - [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#examples)
     - [Parser Example](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-example)
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
@@ -36,7 +37,8 @@
 # Updates (DD/MM/YY)
 ## Update Date : 08/06/2023
 - female_positive-gpt2-141972-5-1 prompt generator is added to Drive. Trained with gpt2 model, 141972 unique prompts, 5 epochs and 1 batch size.
-- Improvements and bug fixes. 
+- Improvements and bug fixes.
+- [WebUI](https://github.com/alpertunga-bile/prompt-tools-webui) is added. You can use the same functionalities with upscale image functionality by [AIUpscale](https://github.com/alpertunga-bile/AIUpscaleGUI).
 
 ## Update Date : 19/05/2023
 - Civitai Tab is added for GUI application.
