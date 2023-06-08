@@ -34,6 +34,10 @@
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates (DD/MM/YY)
+## Update Date : 08/06/2023
+- female_positive-gpt2-141972-5-1 prompt generator is added to Drive. Trained with gpt2 model, 141972 unique prompts, 5 epochs and 1 batch size.
+- Improvements and bug fixes. 
+
 ## Update Date : 19/05/2023
 - Civitai Tab is added for GUI application.
 
