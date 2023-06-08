@@ -1,6 +1,7 @@
 from os.path import exists
 from Completer import Completer
 from CLI.Utility import ClearTerminal
+from re import compile, sub
 
 class CLIGenerate:
     minLength = 10
@@ -36,7 +37,7 @@ class CLIGenerate:
 
     def GenerateText(self, seed, model, generatorArgs):
         result = model.generate_text(seed, generatorArgs)
-        generatedText = self.Preprocess(result.text)
+        generatedText = self.Preprocess(seed + result.text)
 
         if self.selfRecursive:
             for _ in range(0, self.recursiveLevel):
@@ -112,18 +113,17 @@ class CLIGenerate:
             elif operation == 'exit':
                 return
 
-    def RemoveDuplicates(self, line):
-        uniqueList = []
-        [uniqueList.append(x) for x in line if x.replace(" ", "") not in uniqueList]
-        return uniqueList
+    def RemoveDuplicates(self, lineList):
+        return list(dict.fromkeys(lineList))
 
     def Preprocess(self, line):
+        pattern = compile(r'(,\s){2,}')
+
         tempLine = line.replace(u'\xa0', u' ')
         tempLine = tempLine.replace("\n", ", ")
         tempLine = tempLine.replace("  ", " ")
         tempLine = tempLine.replace("\t", " ")
-        tempLine = tempLine.replace(",,", ",")
-        tempLine = tempLine.replace(",, ", ", ")
+        tempLine = sub(pattern, ', ', tempLine)
 
         tempLine = ', '.join(self.RemoveDuplicates(tempLine.split(",")))
 
