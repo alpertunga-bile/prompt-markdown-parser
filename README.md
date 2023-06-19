@@ -112,7 +112,7 @@
 https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/ec9826bf-509e-4c62-8e78-952fe24db44f
 
 ## Linux
-- Run these commands one by one
+- Try ```python start.py``` command. If it fails, run these commands
 <pre>
 python -m venv venv
 source venv/bin/activate
