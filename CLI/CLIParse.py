@@ -38,7 +38,7 @@ class CLIParse:
         if(exists(fastPath) == False):
             print("Parse> There is no folder named 'prompts'")
             return
-        self.promptFiles = glob(f"{fastPath}\*.md")
+        self.promptFiles = glob(join(fastPath, "*.md"))
         print(f"Parse> {len(self.promptFiles)} files are found ...")
         self.Run()
 
