@@ -95,7 +95,7 @@
 # Requirements
 - Tested in Windows OS environment.
 - Minimum 3.7 Python version is required for the GUI application.
-- Tested with Python 3.10.6. As a note for Python 3.10.6 version Tkinter comes as default. You can easily test it with these commands:
+- Tested with Python 3.10.6 and 3.11.3. As a note for Python 3.10.6 and newer versions Tkinter comes as default. You can easily test it with these commands:
 
 ## Check Tkinter Module
 - From command line enter ```python``` command and press Enter button.
@@ -106,7 +106,19 @@
 - Clone the repository with ```git clone https://github.com/alpertunga-bile/prompt-markdown-parser.git``` command.
 - Get into folder with ```cd prompt-markdown-parser``` command.
 
+## Windows
+- Run ```python start.py``` command.
+
 https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/ec9826bf-509e-4c62-8e78-952fe24db44f
+
+## Linux
+- Run these commands one by one
+<pre>
+python -m venv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
+deactivate
+</pre>
 
 # CLI Application
 
