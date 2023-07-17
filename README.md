@@ -30,11 +30,15 @@
       - [Evaluate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#evaluate-tab)
       - [Generate Tab](https://github.com/alpertunga-bile/prompt-markdown-parser#generate-tab)
     - [WebUI Application](https://github.com/alpertunga-bile/prompt-tools-webui)
+    - [Prompt Generator Custom Node for ComfyUI](https://github.com/alpertunga-bile/prompt-generator-comfyui)
 - [Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#examples)
     - [Parser Example](https://github.com/alpertunga-bile/prompt-markdown-parser#parser-example)
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates (DD/MM/YY)
+## Update Date : 17/07/2023
+- Custom prompt generator node for ComfyUI is added. You can access the repository with [this link](https://github.com/alpertunga-bile/prompt-generator-comfyui).
+
 ## Update Date : 08/06/2023
 - female_positive-gpt2-141972-5-1 prompt generator is added to Drive. Trained with gpt2 model, 141972 unique prompts, 5 epochs and 1 batch size.
 - Improvements and bug fixes.
