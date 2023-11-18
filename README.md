@@ -36,6 +36,10 @@
     - [Generator Examples](https://github.com/alpertunga-bile/prompt-markdown-parser#generator-examples)
 
 # Updates (DD/MM/YY)
+## Update Date : 18/11/2023
+- CivitAI tab and CLI functionality is updated based on the update of the CivitAI REST API.
+- Refactoring code base is done.
+
 ## Update Date : 17/07/2023
 - Custom prompt generator node for ComfyUI is added. You can access the repository with [this link](https://github.com/alpertunga-bile/prompt-generator-comfyui).
 
@@ -140,7 +144,7 @@ https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/90fd1e
 ## Civitai Menu
 - There are three functionalities you can use.
 - [x] Files have to be in ```dataset``` folder and just write the filename not path.
-- Enhance functionality is for creating dataset. You can specify positive and negative filenames. Then you can specify image limit in [1, 200] range. Then specify number page to start and end. Specify wanted and unwanted prompts with comma seperated. You can use default prompts. Select sort, period and nsfw parameters.
+- Enhance functionality is for creating dataset. You can specify positive and negative filenames. Then you can specify image limit in [1, 200] range. Then specify image cursor to start, when to finish as hour and minute. Specify wanted and unwanted prompts with comma seperated. You can use default prompts. Select sort, period and nsfw parameters.
 - Prune functionality is for clearing duplicates in files. Enter your filenames and wait for "Done!!!" text to show.
 - Frequency functionality is for looking how many times a word is used. Specify filename and when it is done look for ```dataset/frequency.txt``` file.
 

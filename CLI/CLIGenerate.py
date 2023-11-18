@@ -1,7 +1,8 @@
 from os.path import exists
 from Completer import Completer
-from CLI.Utility import ClearTerminal
+from Utility import ClearTerminal
 from re import compile, sub
+
 
 class CLIGenerate:
     minLength = 10
@@ -14,25 +15,33 @@ class CLIGenerate:
     selfRecursive = False
     completer = None
 
-    def __init__(self, completer : Completer):
+    def __init__(self, completer: Completer):
         self.completer = completer
 
     def Start(self):
         self.modelName = input("Generate> Model Name (E.g. gpt2) : ")
         self.modelFolder = input("Generate> Model Folder Path : ")
         while exists(self.modelFolder) is False:
-            print(f"Generate> {self.modelFolder} is not exists. Please enter a valid path!")
+            print(
+                f"Generate> {self.modelFolder} is not exists. Please enter a valid path!"
+            )
             self.modelFolder = input("Generate> Model Folder Path : ")
         self.completer.SetCompleteFunction("yesOrNo")
         self.minLength = int(input("Generate> Min Length : "))
         self.maxLength = int(input("Generate> Max Length : "))
         self.completer.SetCompleteFunction("yesOrNo")
-        self.doSample = True if input("Generate> Do Sample [yes|no] : ") == 'yes' else False
+        self.doSample = (
+            True if input("Generate> Do Sample [yes|no] : ") == "yes" else False
+        )
         self.completer.SetCompleteFunction("yesOrNo")
-        self.earlyStop = True if input("Generate> Early Stopping [yes|no] : ") == 'yes' else False
+        self.earlyStop = (
+            True if input("Generate> Early Stopping [yes|no] : ") == "yes" else False
+        )
         self.recursiveLevel = int(input("Generate> Recursive Level : "))
         self.completer.SetCompleteFunction("yesOrNo")
-        self.selfRecursive = True if input("Generate> Self Recursive [yes|no] : ") == 'yes' else False
+        self.selfRecursive = (
+            True if input("Generate> Self Recursive [yes|no] : ") == "yes" else False
+        )
         self.Generate()
 
     def GenerateText(self, seed, model, generatorArgs):
@@ -53,18 +62,30 @@ class CLIGenerate:
         return generatedText
 
     def SetVariable(self, variableName):
-        if variableName == 'minLength':
+        if variableName == "minLength":
             self.minLength = int(input("Generate-Set> Set Min Length : "))
-        elif variableName == 'maxLength':
+        elif variableName == "maxLength":
             self.maxLength = int(input("Generate-Set> Set Max Length : "))
-        elif variableName == 'doSample':
-            self.doSample = True if input("Generate-Set> Set Do Sample [yes|no] : ") == 'yes' else False
-        elif variableName == 'earlyStop':
-            self.earlyStop = True if input("Generate-Set> Set Early Stopping [yes|no] : ") == 'yes' else False
-        elif variableName == 'recursiveLevel':
+        elif variableName == "doSample":
+            self.doSample = (
+                True
+                if input("Generate-Set> Set Do Sample [yes|no] : ") == "yes"
+                else False
+            )
+        elif variableName == "earlyStop":
+            self.earlyStop = (
+                True
+                if input("Generate-Set> Set Early Stopping [yes|no] : ") == "yes"
+                else False
+            )
+        elif variableName == "recursiveLevel":
             self.recursiveLevel = int(input("Generate-Set> Set Recursive Level : "))
-        elif variableName == 'selfRecursive':
-            self.selfRecursive = True if input("Generate-Set> Set Self Recursive [yes|no] : ") == 'yes' else False
+        elif variableName == "selfRecursive":
+            self.selfRecursive = (
+                True
+                if input("Generate-Set> Set Self Recursive [yes|no] : ") == "yes"
+                else False
+            )
 
     def PrintVariables(self):
         print(f"Model Name      : {self.modelName}")
@@ -84,47 +105,53 @@ class CLIGenerate:
 
         from happytransformer import HappyGeneration, GENSettings
 
-        model = HappyGeneration(upperModelName, self.modelName, load_path=self.modelFolder)
+        model = HappyGeneration(
+            upperModelName, self.modelName, load_path=self.modelFolder
+        )
 
         while 1:
             self.completer.SetCompleteFunction("generateOrSet")
-            operation = input("Generate> Select an operation [generate|set|print|clear|cls|exit] : ")
+            operation = input(
+                "Generate> Select an operation [generate|set|print|clear|cls|exit] : "
+            )
 
-            if operation == 'generate':
+            if operation == "generate":
                 generatorArgs = GENSettings(
                     min_length=self.minLength,
                     max_length=self.maxLength,
                     do_sample=self.doSample,
-                    early_stopping=self.earlyStop
+                    early_stopping=self.earlyStop,
                 )
 
                 seed = input("Generate> Enter seed : ")
                 generatedText = self.GenerateText(seed, model, generatorArgs)
-                
+
                 print(f"Generate> Generated Text : {generatedText}")
-            if operation == 'print':
+            if operation == "print":
                 self.PrintVariables()
-            elif operation == 'set':
+            elif operation == "set":
                 self.completer.SetCompleteFunction("selectVariableToSet")
-                variableName = input("Generate> Choose A Variable To Set [minLength|maxLength|doSample|earlyStop|recursiveLevel|selfRecursive] : ")
+                variableName = input(
+                    "Generate> Choose A Variable To Set [minLength|maxLength|doSample|earlyStop|recursiveLevel|selfRecursive] : "
+                )
                 self.SetVariable(variableName)
-            elif operation == 'clear' or operation == 'cls':
+            elif operation == "clear" or operation == "cls":
                 ClearTerminal()
-            elif operation == 'exit':
+            elif operation == "exit":
                 return
 
     def RemoveDuplicates(self, lineList):
         return list(dict.fromkeys(lineList))
 
     def Preprocess(self, line):
-        pattern = compile(r'(,\s){2,}')
+        pattern = compile(r"(,\s){2,}")
 
-        tempLine = line.replace(u'\xa0', u' ')
+        tempLine = line.replace("\xa0", " ")
         tempLine = tempLine.replace("\n", ", ")
         tempLine = tempLine.replace("  ", " ")
         tempLine = tempLine.replace("\t", " ")
-        tempLine = sub(pattern, ', ', tempLine)
+        tempLine = sub(pattern, ", ", tempLine)
 
-        tempLine = ', '.join(self.RemoveDuplicates(tempLine.split(",")))
+        tempLine = ", ".join(self.RemoveDuplicates(tempLine.split(",")))
 
         return tempLine

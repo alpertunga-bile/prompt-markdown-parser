@@ -1,9 +1,10 @@
 from os.path import exists, join, splitext
 from os import getcwd
-from glob import glob 
+from glob import glob
 from tqdm import tqdm
 from deep_translator import GoogleTranslator
 from Completer import Completer
+
 
 class CLIParse:
     promptFiles = []
@@ -11,31 +12,33 @@ class CLIParse:
     translator = None
     completer = None
 
-    def __init__(self, completer : Completer):
+    def __init__(self, completer: Completer):
         self.completer = completer
 
     def Start(self):
         self.completer.SetCompleteFunction("parserOperation")
         operation = input("Parse> Choose an operation [allParse|parse|exit] : ")
 
-        if operation == 'allParse':
+        if operation == "allParse":
             self.ParseAllFiles()
-        elif operation == 'parse':
+        elif operation == "parse":
             self.completer.SetCompleteFunction("currentFilesAndFolders")
             filename = input("Parse> File path : ")
             self.promptFiles.append(filename)
             self.Run()
             self.promptFiles.clear()
-        elif operation == 'exit':
+        elif operation == "exit":
             return
         else:
-            while operation != 'allParse' and operation != 'parse' and operation != 'exit':
+            while (
+                operation != "allParse" and operation != "parse" and operation != "exit"
+            ):
                 print("Parse> Invalid command")
                 operation = input("Parse> Choose an operation [allParse|parse|exit] : ")
-        
+
     def ParseAllFiles(self):
         fastPath = join(getcwd(), "prompts")
-        if(exists(fastPath) == False):
+        if exists(fastPath) == False:
             print("Parse> There is no folder named 'prompts'")
             return
         self.promptFiles = glob(join(fastPath, "*.md"))
@@ -49,13 +52,13 @@ class CLIParse:
 
         self.completer.SetCompleteFunction("yesOrNo")
         translate = input("Parse> Do you want to translate [yes|no] : ")
-        while translate != 'yes' and translate != 'no':
+        while translate != "yes" and translate != "no":
             print("Parse> Invalid Command")
             translate = input("Parse> Do you want to translate [yes|no] : ")
 
-        self.isTranslate = True if translate == 'yes' else False
+        self.isTranslate = True if translate == "yes" else False
         if self.isTranslate:
-            self.translator = GoogleTranslator(source='auto', target='en')
+            self.translator = GoogleTranslator(source="auto", target="en")
 
         for promptFile in tqdm(self.promptFiles, desc="Parsing Files"):
             if exists(promptFile) == False:
@@ -76,7 +79,7 @@ class CLIParse:
         Get folder path where is the Markdown file located
         """
         filename = splitext(promptFile)[0]
-        
+
         positiveFilename = f"{filename}_positive.txt"
         negativeFilename = f"{filename}_negative.txt"
 
@@ -92,11 +95,16 @@ class CLIParse:
                 isPositive = True
             elif line.find("Negative Prompts") != -1:
                 isPositive = False
-            
+
             """
             Continue if it is heading, new line, long line
             """
-            if line.startswith("#") or line == "\n" or line.startswith("---") or line == '  \n':
+            if (
+                line.startswith("#")
+                or line == "\n"
+                or line.startswith("---")
+                or line == "  \n"
+            ):
                 continue
 
             line = self.Preprocess(line)
@@ -123,6 +131,7 @@ class CLIParse:
     """
     Preprocess the line that get from markdown file
     """
+
     def Preprocess(self, line):
         """
         Check mostly used starting syntax
@@ -135,7 +144,7 @@ class CLIParse:
             line = line[4:]
         elif line.startswith("- ") or line.startswith("> "):
             line = line[2:]
-        
+
         """
         Check for newline operator
         """

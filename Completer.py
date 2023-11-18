@@ -2,23 +2,25 @@ from readline import parse_and_bind, set_completer, get_completer
 from os import listdir, getcwd
 from os.path import isfile, join
 
+
 class CompleteFunction:
-    vocabs : list = None
+    vocabs: list = None
     completeFunc = None
 
-    def __init__(self, completeFunc = None, vocabs = None):
+    def __init__(self, completeFunc=None, vocabs=None):
         self.vocabs = vocabs
         self.completeFunc = completeFunc
 
     def Completer(self, text, state):
         results = [x for x in self.vocabs if x.startswith(text)] + [None]
         return results[state]
-    
+
     def GetCompleter(self):
         if self.vocabs is None:
             return self.completeFunc
         else:
             return self.Completer
+
 
 class Completer:
     completeDict = {}
@@ -32,7 +34,7 @@ class Completer:
 
     def GetCompleteFunction(self, name):
         return self.completeDict[name]
-    
+
     def DeleteCompleteFunction(self, name):
         if self.completeDict[name]:
             del self.completeDict[name]
@@ -46,7 +48,7 @@ class Completer:
 
     def GetCurrentCompleteFunction(self):
         return get_completer()
-    
+
     def ClearAllFunctions(self):
         self.completeDict.clear()
 
@@ -54,7 +56,7 @@ class Completer:
     Create Functions
     """
 
-    def CreateCompleteFunction(self, name, vocabs : list):
+    def CreateCompleteFunction(self, name, vocabs: list):
         if name in self.completeDict:
             return
 
@@ -75,7 +77,9 @@ class Completer:
         self.AddCompleteFunction(name, None, files)
 
     def CreateCurrentDirectoryGivenExtensionFilesCompleteFunction(self, name, ext):
-        self.CreateGivenDirectoryGivenExtensionFilesCompleteFunction(name, getcwd(), ext)
+        self.CreateGivenDirectoryGivenExtensionFilesCompleteFunction(
+            name, getcwd(), ext
+        )
 
     def CreateGivenDirectoryGivenExtensionFilesCompleteFunction(self, name, path, ext):
         files = [f for f in listdir(path) if isfile(join(path, f)) and f.endswith(ext)]

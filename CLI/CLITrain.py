@@ -1,5 +1,6 @@
 from os.path import exists
 
+
 class CLITrain:
     modelName = ""
     epochs = 10
@@ -10,7 +11,9 @@ class CLITrain:
     def Start(self):
         self.datasetPath = input("Train> Dataset Path : ")
         while exists(self.datasetPath) is False:
-            print(f"Train> {self.datasetPath} is not exists. Please enter a valid path!")
+            print(
+                f"Train> {self.datasetPath} is not exists. Please enter a valid path!"
+            )
             self.datasetPath = input("Train> Dataset Path : ")
         self.modelName = input("Train> Model Name (E.g. gpt2) : ")
         self.epochs = int(input("Train> Epochs : "))
@@ -29,12 +32,14 @@ class CLITrain:
         from happytransformer import HappyGeneration, GENTrainArgs
 
         if exists(self.modelFolder):
-            model = HappyGeneration(upperModelName, self.modelName, load_path=self.modelFolder)
+            model = HappyGeneration(
+                upperModelName, self.modelName, load_path=self.modelFolder
+            )
         else:
             model = HappyGeneration(upperModelName, self.modelName)
 
         args = GENTrainArgs(num_train_epochs=self.epochs, batch_size=self.batchSize)
         model.train(self.datasetPath, args=args)
         model.save(f"dataset/{self.modelFolder}")
-        
+
         print("Train> DONE!!!")
