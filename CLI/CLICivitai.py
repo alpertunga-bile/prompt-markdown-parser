@@ -160,7 +160,9 @@ class CLICivitai:
 
             print(f"Image Cursor : {currentCursor}")
 
-            for index in range(imageLimit):
+            totalImageSize = len(jsonFile["items"])
+
+            for index in range(totalImageSize):
                 positivePrompt, negativePrompt = self.GetPrompts(jsonFile, index)
 
                 if positivePrompt is None:
@@ -177,8 +179,13 @@ class CLICivitai:
                 negativePrompts.add(self.Preprocess(negativePrompt))
 
             currentCursor = jsonFile["metadata"]["nextCursor"]
+            currentCursor = (
+                int(currentCursor)
+                if currentCursor != None
+                else currentCursor + totalImageSize
+            )
 
-            sleep(15.0)
+            sleep(5.0)
 
         self.WritePromptsFile(positivePrompts, self.positiveFilename)
         del positivePrompts
