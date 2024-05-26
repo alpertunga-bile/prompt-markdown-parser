@@ -1,66 +1,21 @@
-from Utility import ClearTerminal
-from CLI.CLIParse import CLIParse
-from CLI.CLICivitai import CLICivitai
-from CLI.CLICreate import CLICreate
-from CLI.CLITrain import CLITrain
-from CLI.CLIEvaluate import CLIEvaluate
-from CLI.CLIGenerate import CLIGenerate
-from Completer import Completer
-
-
-def AddFunctions(completer: Completer):
-    completer.CreateCompleteFunction(
-        "mainOperation",
-        [
-            "parse",
-            "clear",
-            "cls",
-            "create",
-            "civitai",
-            "train",
-            "evaluate",
-            "exit",
-            "generate",
-        ],
-    )
-    completer.CreateCompleteFunction("parserOperation", ["allParse", "exit", "parse"])
-    completer.CreateCurrentDirectoryFilesAndFoldersCompleteFunction(
-        "currentFilesAndFolders"
-    )
-    completer.CreateCompleteFunction("yesOrNo", ["yes", "no"])
-    completer.CreateCompleteFunction(
-        "generateOrSet", ["generate", "set", "exit", "clear", "cls", "print"]
-    )
-    completer.CreateCompleteFunction(
-        "selectVariableToSet",
-        [
-            "minLength",
-            "maxLength",
-            "doSample",
-            "earlyStop",
-            "recursiveLevel",
-            "selfRecursive",
-        ],
-    )
-    completer.CreateCompleteFunction(
-        "createrOperation", ["enhance", "prune", "frequency", "clear", "cls", "exit"]
-    )
-    completer.CreateCompleteFunction(
-        "createrNSFW", ["none", "soft", "mature", "x", "all"]
-    )
-    completer.CreateCompleteFunction(
-        "createSort", ["most_reactions", "most_comments", "newest"]
-    )
-    completer.CreateCompleteFunction(
-        "createrPeriod", ["allTime", "year", "month", "week", "day"]
-    )
+from pmr_sources.Utility import ClearTerminal
+from pmr_sources.CLI.CLIParse import CLIParse
+from pmr_sources.CLI.CLICivitai import CLICivitai
+from pmr_sources.CLI.CLICreate import CLICreate
+from pmr_sources.CLI.CLITrain import CLITrain
+from pmr_sources.CLI.CLIEvaluate import CLIEvaluate
+from pmr_sources.CLI.CLIGenerate import CLIGenerate
+from pmr_sources.Completer import Completer
+from pmr_sources.CompleteUtility import AddFunctions, mainCompleter
 
 
 if __name__ == "__main__":
     ClearTerminal()
+
     completer = Completer()
     AddFunctions(completer)
-    completer.SetCompleteFunction("mainOperation")
+
+    completer.SetCompleteFunction(mainCompleter)
     operation = input(
         "Main> Select an operation [parse|create|civitai|train|evaluate|generate|clear|cls|exit] : "
     )
@@ -96,7 +51,7 @@ if __name__ == "__main__":
             cliGenerate.Start()
             operation = ""
         else:
-            completer.SetCompleteFunction("mainOperation")
+            completer.SetCompleteFunction(mainCompleter)
             operation = input(
                 "Main> Select an operation [parse|create|civitai|train|evaluate|generate|clear|cls|exit] : "
             )

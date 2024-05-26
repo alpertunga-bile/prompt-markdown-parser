@@ -2,7 +2,12 @@ from json import loads
 from requests import get
 from re import sub
 from os.path import exists, join
-from Utility import Clamp, GetPromptSets, CheckIfContainsWord, AddNewlineToList
+from pmr_sources.Utility import (
+    Clamp,
+    GetPromptSets,
+    CheckIfContainsWord,
+    AddNewlineToList,
+)
 from threading import Thread
 from datetime import datetime
 
