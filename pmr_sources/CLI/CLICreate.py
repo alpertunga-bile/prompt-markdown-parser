@@ -8,57 +8,44 @@ from pmr_sources.Utility import (
     EnhancePreprocess,
     GetFilenameWithExtension,
     WritePromptsFile,
+    GetPromptSets,
 )
 
 
 class CLICreate:
-    datasetPath = ""
-    positiveFilename = ""
-    negativeFilename = ""
     completer = None
 
-    def __init__(self, completer: Completer):
-        self.completer = completer
+    def __init__(completer: Completer):
+        completer = completer
 
     def Start(self):
-        self.completer.SetCompleteFunction("currentFilesAndFolders")
-        self.datasetPath = input("Create> Dataset Path : ")
-        while exists(self.datasetPath) is False:
-            print(
-                f"Create> {self.datasetPath} is not exists. Please enter a valid path!"
-            )
-            self.datasetPath = input("Create> Dataset Path : ")
-        self.positiveFilename = input("Create> Positive Filename : ")
-        self.negativeFilename = input("Create> Negative Filename : ")
-        self.Create()
+        datasetPath = input("Create> Dataset Path : ")
+        while exists(datasetPath) is False:
+            print(f"Create> {datasetPath} is not exists. Please enter a valid path!")
+            datasetPath = input("Create> Dataset Path : ")
 
-    def Create(self):
-        linksFile = open(self.datasetPath, "r")
+        positiveFilename = input("Create> Positive Filename : ")
+        negativeFilename = input("Create> Negative Filename : ")
+        self.Create(datasetPath, positiveFilename, negativeFilename)
+
+    def Create(self, datasetPath: str, positiveFilename: str, negativeFilename: str):
+        linksFile = open(datasetPath, "r")
         promptLinks = linksFile.readlines()
 
         if len(promptLinks) == 0:
             print("Create> There are no links in the file")
             return
 
-        positivePrompts = []
-        negativePrompts = []
-
-        self.positiveFilename = GetFilenameWithExtension(
-            join("dataset", self.positiveFilename), "txt"
+        positiveFilename = GetFilenameWithExtension(
+            join("dataset", positiveFilename), "txt"
         )
-        self.negativeFilename = GetFilenameWithExtension(
-            join("dataset", self.negativeFilename), "txt"
+        negativeFilename = GetFilenameWithExtension(
+            join("dataset", negativeFilename), "txt"
         )
 
-        if exists(self.positiveFilename) == True:
-            positiveFile = open(self.positiveFilename, "r")
-            positivePrompts = positiveFile.readlines()
-            positiveFile.close()
-
-        if exists(self.negativeFilename) == True:
-            negativeFile = open(self.negativeFilename, "r")
-            negativePrompts = negativeFile.readlines()
-            negativeFile.close()
+        positivePrompts, negativePrompts = GetPromptSets(
+            positiveFilename, self.negativeFilename
+        )
 
         for promptLink in tqdm(promptLinks, desc="Create> Getting and Writing Prompts"):
             info = requests.get(promptLink).text
@@ -85,7 +72,7 @@ class CLICreate:
         except:
             pass
 
-        WritePromptsFile(positivePrompts, self.positiveFilename)
-        WritePromptsFile(negativePrompts, self.negativeFilename)
+        WritePromptsFile(positivePrompts, positiveFilename)
+        WritePromptsFile(negativePrompts, negativeFilename)
 
         print("Create> DONE !!!")
