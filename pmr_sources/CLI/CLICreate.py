@@ -1,9 +1,14 @@
-from re import sub
-from os.path import exists
+from os.path import exists, join
 from tqdm import tqdm
 from bs4 import BeautifulSoup as bs
 from pmr_sources.Completer import Completer
 import requests
+
+from pmr_sources.Utility import (
+    EnhancePreprocess,
+    GetFilenameWithExtension,
+    WritePromptsFile,
+)
 
 
 class CLICreate:
@@ -38,15 +43,12 @@ class CLICreate:
         positivePrompts = []
         negativePrompts = []
 
-        if self.positiveFilename.endswith(".txt") is False:
-            self.positiveFilename = f"dataset/{self.positiveFilename}.txt"
-        else:
-            self.positiveFilename = f"dataset/{self.positiveFilename}"
-
-        if self.negativeFilename.endswith(".txt") is False:
-            self.negativeFilename = f"dataset/{self.negativeFilename}.txt"
-        else:
-            self.negativeFilename = f"dataset/{self.negativeFilename}"
+        self.positiveFilename = GetFilenameWithExtension(
+            join("dataset", self.positiveFilename), "txt"
+        )
+        self.negativeFilename = GetFilenameWithExtension(
+            join("dataset", self.negativeFilename), "txt"
+        )
 
         if exists(self.positiveFilename) == True:
             positiveFile = open(self.positiveFilename, "r")
@@ -66,12 +68,12 @@ class CLICreate:
             )
 
             if len(prompts) == 2:
-                positiveLine = self.Preprocess(prompts[0].text)
-                negativeLine = self.Preprocess(prompts[1].text)
+                positiveLine = EnhancePreprocess(prompts[0].text)
+                negativeLine = EnhancePreprocess(prompts[1].text)
                 positivePrompts.append(f"{positiveLine}\n")
                 negativePrompts.append(f"{negativeLine}\n")
             elif len(prompts) == 1:
-                positiveLine = self.Preprocess(prompts[0].text)
+                positiveLine = EnhancePreprocess(prompts[0].text)
                 positivePrompts.append(f"{positiveLine}\n")
 
             positivePrompts = [*set(positivePrompts)]
@@ -81,24 +83,9 @@ class CLICreate:
             positivePrompts.remove("\n")
             negativePrompts.remove("\n")
         except:
-            temp = True
+            pass
 
-        positiveFile = open(self.positiveFilename, "w")
-        negativeFile = open(self.negativeFilename, "w")
-
-        positiveFile.writelines(positivePrompts)
-        negativeFile.writelines(negativePrompts)
-
-        positiveFile.close()
-        negativeFile.close()
+        WritePromptsFile(positivePrompts, self.positiveFilename)
+        WritePromptsFile(negativePrompts, self.negativeFilename)
 
         print("Create> DONE !!!")
-
-    def Preprocess(self, line):
-        tempLine = line.replace("\n", "")
-        tempLine = sub(r"<.+?>", "", tempLine)
-        tempLine = tempLine.replace("  ", " ")
-        tempLine = tempLine.replace("\t", " ")
-        if tempLine.startswith(" "):
-            tempLine = tempLine[1:]
-        return tempLine

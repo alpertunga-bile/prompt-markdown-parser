@@ -21,6 +21,13 @@ def RemoveNewlineFromFileContents(contents: list[str]) -> list[str]:
     return [s.rstrip("\n") for s in contents]
 
 
+def GetFilenameWithExtension(givenStr: str, extension: str) -> str:
+    if givenStr.endswith(extension):
+        return
+    else:
+        return givenStr + "." + extension
+
+
 def GetPrompt(filename: str) -> set:
     with open(filename) as file:
         promptSet = set(RemoveNewlineFromFileContents(file.readlines()))
