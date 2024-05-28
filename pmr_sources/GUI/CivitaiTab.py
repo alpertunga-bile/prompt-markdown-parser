@@ -1,12 +1,12 @@
 from json import loads
 from requests import get
-from re import sub
 from os.path import exists, join
 from pmr_sources.Utility import (
     Clamp,
     GetPromptSets,
-    CheckIfContainsWord,
-    AddNewlineToList,
+    EnhancePreprocess,
+    WritePromptsFile,
+    CheckPrompt,
 )
 from threading import Thread
 from datetime import datetime
@@ -208,6 +208,9 @@ class CivitaiTab:
         hourEnd = Clamp(int(self.hourEndEntry.get()), 0, 23)
         minuteEnd = Clamp(int(self.minuteEndEntry.get()), 0, 59)
 
+        checkErrorCounter = 0
+        lastCurrentCursor = currentCursor
+
         while True:
             currentTime = datetime.now()
 
@@ -215,6 +218,10 @@ class CivitaiTab:
                 self.enhanceInfoLabel.configure(
                     text=f"Finished at {currentCursor} | Reached to specified time limit"
                 )
+                break
+
+            if checkErrorCounter == 3:
+                self.enhanceInfoLabel.configure(text="Loop is detected | Stoping ...")
                 break
 
             url = baseUrl + str(currentCursor)
@@ -227,7 +234,7 @@ class CivitaiTab:
                 )
                 return
 
-            self.enhanceInfoLabel.configure(text=f"Image Cursor : {currentCursor}")
+            self.enhanceInfoLabel.configure(text=f"Current Cursor : {currentCursor}")
 
             totalImageSize = len(jsonFile["items"])
 
@@ -237,39 +244,41 @@ class CivitaiTab:
                 if positivePrompt is None:
                     continue
 
-                if self.CanAdd(positivePrompt) is False:
+                if (
+                    CheckPrompt(
+                        positivePrompt, self.wantedPrompts, self.unwantedPrompts
+                    )
+                    is False
+                ):
                     continue
 
-                positivePrompts.add(self.Preprocess(positivePrompt))
+                positivePrompts.add(EnhancePreprocess(positivePrompt))
 
                 if negativePrompt is None:
                     continue
 
-                negativePrompts.add(self.Preprocess(negativePrompt))
+                negativePrompts.add(EnhancePreprocess(negativePrompt))
 
             currentCursor = jsonFile["metadata"]["nextCursor"]
             currentCursor = (
-                int(currentCursor)
-                if currentCursor != None
-                else currentCursor + totalImageSize
+                str(currentCursor) if currentCursor != None else lastCurrentCursor
             )
+
+            checkErrorCounter = (
+                checkErrorCounter + 1 if currentCursor == lastCurrentCursor else 0
+            )
+
+            lastCurrentCursor = currentCursor
 
             sleep(5.0)
 
-        self.WritePromptsFile(positivePrompts, positiveFilepath)
+        WritePromptsFile(positivePrompts, positiveFilepath)
         del positivePrompts
 
-        self.WritePromptsFile(negativePrompts, negativeFilepath)
+        WritePromptsFile(negativePrompts, negativeFilepath)
         del negativePrompts
 
         gc.collect()
-
-    def WritePromptsFile(self, prompts: set[str], filepath: str) -> None:
-        listPrompts = AddNewlineToList(prompts)
-        print(f"Saving to {filepath}")
-
-        with open(filepath, "w") as file:
-            file.writelines(listPrompts)
 
     def GetPrompts(self, jsonFile, imageIndex):
         positivePrompt = None
@@ -286,43 +295,3 @@ class CivitaiTab:
             negativePrompt = None
 
         return positivePrompt, negativePrompt
-
-    def CanAdd(self, positivePrompt):
-        processedPrompt = self.Preprocess(positivePrompt)
-
-        if processedPrompt is None:
-            return False
-
-        if CheckIfContainsWord(self.unwantedPrompts, processedPrompt):
-            return False
-
-        if CheckIfContainsWord(self.wantedPrompts, processedPrompt):
-            return True
-
-        return False
-
-    def Preprocess(self, line: str) -> str:
-        if line is None:
-            return None
-
-        tempLine = line.encode("ascii", "ignore")
-        tempLine = tempLine.decode()
-        tempLine = tempLine.replace("\n", ", ")
-        tempLine = sub(r"<.+?>", "", tempLine)
-        tempLine = tempLine.replace("\t", " ")
-
-        if tempLine.startswith(" "):
-            tempLine = tempLine[1:]
-
-        wo_whitespace_list = [s.strip() for s in tempLine.split(",")]
-        cleared_list = [s for s in wo_whitespace_list if s != " " and s != ""]
-
-        tempLine = ", ".join(cleared_list)
-
-        tempLine.replace(", ,", ", ")
-        tempLine.replace(",\n", "\n")
-
-        if tempLine.startswith(", "):
-            tempLine = tempLine[2:]
-
-        return tempLine

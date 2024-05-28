@@ -162,6 +162,10 @@ class CLICivitai:
                 print(f"Finished at {currentCursor} | Reached to specified time limit")
                 break
 
+            if checkErrorCounter == 3:
+                print("Loop is detected | Stoping ...")
+                break
+
             url = givenUrl + str(currentCursor)
 
             try:
@@ -198,9 +202,7 @@ class CLICivitai:
 
             currentCursor = jsonFile["metadata"]["nextCursor"]
             currentCursor = (
-                str(currentCursor)
-                if currentCursor != None
-                else str(currentCursor + totalImageSize)
+                str(currentCursor) if currentCursor != None else lastCurrentCursor
             )
 
             checkErrorCounter = (
