@@ -1,5 +1,9 @@
 # Updates (DD/MM/YY)
 
+## Update Date : 28/05/2024
+- Codebase is refactored
+- Preprocess algorithms are updated
+
 ## Update Date : 28/01/2024
 - The cursor updates in the CivitAITab and CLICivitai files are changed. If the nextCursor is not available in the json file, it adds to itself the total image count in the json file. The nextCursor is not available error may be occured if you do not use Newest for the sort variable so this update was made to fix this bug.
 
