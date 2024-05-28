@@ -1,4 +1,4 @@
-from os.path import exists
+from os.path import exists, join
 
 
 class CLITrain:
@@ -31,7 +31,7 @@ class CLITrain:
 
         from happytransformer import HappyGeneration, GENTrainArgs
 
-        if exists(self.modelFolder):
+        if exists(join("dataset", self.modelFolder)):
             model = HappyGeneration(
                 upperModelName, self.modelName, load_path=self.modelFolder
             )
@@ -40,6 +40,6 @@ class CLITrain:
 
         args = GENTrainArgs(num_train_epochs=self.epochs, batch_size=self.batchSize)
         model.train(self.datasetPath, args=args)
-        model.save(f"dataset/{self.modelFolder}")
+        model.save(join("dataset", self.modelFolder))
 
         print("Train> DONE!!!")
