@@ -1,4 +1,5 @@
 from os import getcwd
+from os.path import join
 import threading
 
 
@@ -92,7 +93,7 @@ class TrainTab:
         happy_gen = HappyGeneration(upperModelName, modelName)
         args = GENTrainArgs(num_train_epochs=epochs, batch_size=batchSize)
         happy_gen.train(self.trainName, args=args)
-        happy_gen.save(f"dataset/{modelFolder}")
+        happy_gen.save(join("dataset", modelFolder))
         self.infoLabel.configure(text="DONE!!!")
 
     def Refresh(self):
