@@ -6,9 +6,9 @@ from string import punctuation
 from os.path import exists, join
 import gc
 
-from pmr_sources.Completer import Completer
+from sources.Completer import Completer
 
-from pmr_sources.Utility import (
+from sources.Utility import (
     ClearTerminal,
     Clamp,
     GetPromptSets,
@@ -17,7 +17,7 @@ from pmr_sources.Utility import (
     WritePromptsFile,
 )
 
-from pmr_sources.CompleteUtility import (
+from sources.CompleteUtility import (
     creatorCompleter,
     sortCompleter,
     nsfwCompleter,

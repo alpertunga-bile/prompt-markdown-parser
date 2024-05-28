@@ -1,13 +1,13 @@
 from os.path import exists
-from pmr_sources.Completer import Completer
-from pmr_sources.Utility import ClearTerminal
+from sources.Completer import Completer
+from sources.Utility import ClearTerminal
 
-from pmr_sources.CompleteUtility import (
+from sources.CompleteUtility import (
     ynQuestionCompleter,
     variableSelectCompleter,
     genOrSetCompleter,
 )
-from pmr_sources.Preprocess import Preprocess
+from sources.Preprocess import Preprocess
 
 
 class CLIGenerate:

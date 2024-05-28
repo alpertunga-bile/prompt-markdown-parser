@@ -1,12 +1,12 @@
-from pmr_sources.Utility import ClearTerminal
-from pmr_sources.CLI.CLIParse import CLIParse
-from pmr_sources.CLI.CLICivitai import CLICivitai
-from pmr_sources.CLI.CLICreate import CLICreate
-from pmr_sources.CLI.CLITrain import CLITrain
-from pmr_sources.CLI.CLIEvaluate import CLIEvaluate
-from pmr_sources.CLI.CLIGenerate import CLIGenerate
-from pmr_sources.Completer import Completer
-from pmr_sources.CompleteUtility import AddFunctions, mainCompleter
+from sources.Utility import ClearTerminal
+from sources.CLI.CLIParse import CLIParse
+from sources.CLI.CLICivitai import CLICivitai
+from sources.CLI.CLICreate import CLICreate
+from sources.CLI.CLITrain import CLITrain
+from sources.CLI.CLIEvaluate import CLIEvaluate
+from sources.CLI.CLIGenerate import CLIGenerate
+from sources.Completer import Completer
+from sources.CompleteUtility import AddFunctions, mainCompleter
 
 
 if __name__ == "__main__":

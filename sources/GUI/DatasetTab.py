@@ -2,7 +2,7 @@ from os import getcwd
 from os.path import exists, join
 from threading import Thread
 
-from pmr_sources.Utility import GetFilenameWithExtension, EnhancePreprocess
+from sources.Utility import GetFilenameWithExtension, EnhancePreprocess
 
 
 class DatasetTab:

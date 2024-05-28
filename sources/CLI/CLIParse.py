@@ -3,10 +3,10 @@ from os import getcwd
 from glob import glob
 from tqdm import tqdm
 from deep_translator import GoogleTranslator
-from pmr_sources.Completer import Completer
+from sources.Completer import Completer
 from re import sub
 
-from pmr_sources.CompleteUtility import parserCompleter
+from sources.CompleteUtility import parserCompleter
 
 
 class CLIParse:

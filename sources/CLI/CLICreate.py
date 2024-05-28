@@ -1,10 +1,10 @@
 from os.path import exists, join
 from tqdm import tqdm
 from bs4 import BeautifulSoup as bs
-from pmr_sources.Completer import Completer
+from sources.Completer import Completer
 import requests
 
-from pmr_sources.Utility import (
+from sources.Utility import (
     EnhancePreprocess,
     GetFilenameWithExtension,
     WritePromptsFile,

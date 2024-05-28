@@ -1,4 +1,4 @@
-from pmr_sources.Startup import Startup
+from sources.Startup import Startup
 from argparse import ArgumentParser
 
 if __name__ == "__main__":

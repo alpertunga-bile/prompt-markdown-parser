@@ -1,7 +1,7 @@
 from json import loads
 from requests import get
 from os.path import exists, join
-from pmr_sources.Utility import (
+from sources.Utility import (
     Clamp,
     GetPromptSets,
     EnhancePreprocess,

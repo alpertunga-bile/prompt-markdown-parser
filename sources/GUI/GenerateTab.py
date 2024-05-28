@@ -2,7 +2,7 @@ from os import getcwd
 from threading import Thread
 from happytransformer import HappyGeneration, GENSettings
 
-from pmr_sources.Preprocess import Preprocess
+from sources.Preprocess import Preprocess
 
 
 class GenerateTab:
