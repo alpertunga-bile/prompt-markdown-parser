@@ -1,6 +1,8 @@
 from os import getcwd
 from threading import Thread
-from re import compile, sub
+from happytransformer import HappyGeneration, GENSettings
+
+from pmr_sources.Preprocess import Preprocess
 
 
 class GenerateTab:
@@ -153,19 +155,6 @@ class GenerateTab:
     def RemoveDuplicates(self, lineList):
         return list(dict.fromkeys(lineList))
 
-    def Preprocess(self, line):
-        pattern = compile(r"(,\s){2,}")
-
-        tempLine = line.replace("\xa0", " ")
-        tempLine = tempLine.replace("\n", ", ")
-        tempLine = tempLine.replace("  ", " ")
-        tempLine = tempLine.replace("\t", " ")
-        tempLine = sub(pattern, ", ", tempLine)
-
-        tempLine = ", ".join(self.RemoveDuplicates(tempLine.split(",")))
-
-        return tempLine
-
     def Generate(self):
         self.generatorTextbox.delete("0.0", "end")
         seed = "mature woman" if self.seedEntry.get() == "" else self.seedEntry.get()
@@ -179,8 +168,6 @@ class GenerateTab:
         earlyStopping = True if self.earlyStoppingCheckboxIntVar.get() == 1 else False
         recursiveLevel = int(self.recursiveSlider.get())
         selfRecursive = True if self.selfRecursiveIntVar.get() == 1 else False
-
-        from happytransformer import HappyGeneration, GENSettings
 
         generatorArgs = GENSettings(
             min_length=minLength,
@@ -200,18 +187,18 @@ class GenerateTab:
         )
         result = happy_gen.generate_text(seed, generatorArgs)
 
-        generatedText = self.Preprocess(seed + result.text)
+        generatedText = Preprocess(seed + result.text)
 
         if selfRecursive:
             for _ in range(0, recursiveLevel):
                 result = happy_gen.generate_text(generatedText, generatorArgs)
-                generatedText = self.Preprocess(result.text)
-            generatedText = self.Preprocess(seed + generatedText)
+                generatedText = Preprocess(result.text)
+            generatedText = Preprocess(seed + generatedText)
         else:
             for _ in range(0, recursiveLevel):
                 result = happy_gen.generate_text(generatedText, generatorArgs)
                 generatedText += result.text
-                generatedText = self.Preprocess(generatedText)
+                generatedText = Preprocess(generatedText)
 
         self.generatorTextbox.insert("0.0", generatedText)
 

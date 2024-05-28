@@ -191,7 +191,7 @@ class CivitaiTab:
         from time import sleep
 
         imageLimit = Clamp(int(self.imageLimitEntry.get()), 1, 200)
-        currentCursor = int(self.imageCursorStartEntry.get())
+        currentCursor = str(self.imageCursorStartEntry.get())
 
         self.GetWantedAndUnwantedPrompts()
         baseUrl = self.GetUrl(imageLimit)

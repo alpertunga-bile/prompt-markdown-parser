@@ -2,6 +2,8 @@ from os import getcwd
 from os.path import join
 import threading
 
+from happytransformer import HappyGeneration, GENTrainArgs
+
 
 class TrainTab:
     parentWindow = None
@@ -87,8 +89,6 @@ class TrainTab:
         epochs = 10 if self.epochsEntry.get() == "" else int(self.epochsEntry.get())
         batchSize = 1 if self.batchEntry.get() == "" else int(self.batchEntry.get())
         modelFolder = self.modelFolderEntry.get()
-
-        from happytransformer import HappyGeneration, GENTrainArgs
 
         happy_gen = HappyGeneration(upperModelName, modelName)
         args = GENTrainArgs(num_train_epochs=epochs, batch_size=batchSize)

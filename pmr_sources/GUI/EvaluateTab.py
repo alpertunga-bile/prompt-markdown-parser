@@ -1,6 +1,8 @@
 from os import getcwd
 from threading import Thread
 
+from happytransformer import HappyGeneration
+
 
 class EvaluateTab:
     parentWindow = None
@@ -70,8 +72,6 @@ class EvaluateTab:
 
         if modelName.find("/") != -1:
             upperModelName = modelName.split("/")[1].upper()
-
-        from happytransformer import HappyGeneration
 
         happy_gen = HappyGeneration(upperModelName, modelName, load_path=self.modelPath)
         result = happy_gen.eval(self.databaseName)

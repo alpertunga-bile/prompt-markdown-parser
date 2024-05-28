@@ -78,7 +78,7 @@ def remove_exact_keywords(line: str) -> list[str]:
     return pure_prompts.keys()
 
 
-def Preprocess(line: str, preprocess_mode: str) -> str:
+def Preprocess(line: str) -> str:
 
     temp_line = line.encode("ascii", "xmlcharrefreplace").decode()
     temp_line = temp_line.encode(errors="xmlcharrefreplace").decode()
