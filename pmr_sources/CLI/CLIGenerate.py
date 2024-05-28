@@ -1,7 +1,13 @@
 from os.path import exists
 from pmr_sources.Completer import Completer
 from pmr_sources.Utility import ClearTerminal
-from re import compile, sub
+
+from pmr_sources.CompleteUtility import (
+    ynQuestionCompleter,
+    variableSelectCompleter,
+    genOrSetCompleter,
+)
+from pmr_sources.Preprocess import Preprocess
 
 
 class CLIGenerate:
@@ -26,19 +32,16 @@ class CLIGenerate:
                 f"Generate> {self.modelFolder} is not exists. Please enter a valid path!"
             )
             self.modelFolder = input("Generate> Model Folder Path : ")
-        self.completer.SetCompleteFunction("yesOrNo")
         self.minLength = int(input("Generate> Min Length : "))
         self.maxLength = int(input("Generate> Max Length : "))
-        self.completer.SetCompleteFunction("yesOrNo")
+        self.completer.SetCompleteFunction(ynQuestionCompleter)
         self.doSample = (
             True if input("Generate> Do Sample [yes|no] : ") == "yes" else False
         )
-        self.completer.SetCompleteFunction("yesOrNo")
         self.earlyStop = (
             True if input("Generate> Early Stopping [yes|no] : ") == "yes" else False
         )
         self.recursiveLevel = int(input("Generate> Recursive Level : "))
-        self.completer.SetCompleteFunction("yesOrNo")
         self.selfRecursive = (
             True if input("Generate> Self Recursive [yes|no] : ") == "yes" else False
         )
@@ -46,18 +49,18 @@ class CLIGenerate:
 
     def GenerateText(self, seed, model, generatorArgs):
         result = model.generate_text(seed, generatorArgs)
-        generatedText = self.Preprocess(seed + result.text)
+        generatedText = Preprocess(seed + result.text)
 
         if self.selfRecursive:
             for _ in range(0, self.recursiveLevel):
                 result = model.generate_text(generatedText, generatorArgs)
-                generatedText = self.Preprocess(result.text)
-            generatedText = self.Preprocess(seed + generatedText)
+                generatedText = Preprocess(result.text)
+            generatedText = Preprocess(seed + generatedText)
         else:
             for _ in range(0, self.recursiveLevel):
                 result = model.generate_text(generatedText, generatorArgs)
                 generatedText += result.text
-                generatedText = self.Preprocess(generatedText)
+                generatedText = Preprocess(generatedText)
 
         return generatedText
 
@@ -109,8 +112,8 @@ class CLIGenerate:
             upperModelName, self.modelName, load_path=self.modelFolder
         )
 
-        while 1:
-            self.completer.SetCompleteFunction("generateOrSet")
+        while True:
+            self.completer.SetCompleteFunction(genOrSetCompleter)
             operation = input(
                 "Generate> Select an operation [generate|set|print|clear|cls|exit] : "
             )
@@ -130,7 +133,7 @@ class CLIGenerate:
             if operation == "print":
                 self.PrintVariables()
             elif operation == "set":
-                self.completer.SetCompleteFunction("selectVariableToSet")
+                self.completer.SetCompleteFunction(variableSelectCompleter)
                 variableName = input(
                     "Generate> Choose A Variable To Set [minLength|maxLength|doSample|earlyStop|recursiveLevel|selfRecursive] : "
                 )
@@ -139,19 +142,3 @@ class CLIGenerate:
                 ClearTerminal()
             elif operation == "exit":
                 return
-
-    def RemoveDuplicates(self, lineList):
-        return list(dict.fromkeys(lineList))
-
-    def Preprocess(self, line):
-        pattern = compile(r"(,\s){2,}")
-
-        tempLine = line.replace("\xa0", " ")
-        tempLine = tempLine.replace("\n", ", ")
-        tempLine = tempLine.replace("  ", " ")
-        tempLine = tempLine.replace("\t", " ")
-        tempLine = sub(pattern, ", ", tempLine)
-
-        tempLine = ", ".join(self.RemoveDuplicates(tempLine.split(",")))
-
-        return tempLine

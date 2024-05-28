@@ -4,6 +4,9 @@ from glob import glob
 from tqdm import tqdm
 from deep_translator import GoogleTranslator
 from pmr_sources.Completer import Completer
+from re import sub
+
+from pmr_sources.CompleteUtility import parserCompleter
 
 
 class CLIParse:
@@ -16,13 +19,12 @@ class CLIParse:
         self.completer = completer
 
     def Start(self):
-        self.completer.SetCompleteFunction("parserOperation")
+        self.completer.SetCompleteFunction(parserCompleter)
         operation = input("Parse> Choose an operation [allParse|parse|exit] : ")
 
         if operation == "allParse":
             self.ParseAllFiles()
         elif operation == "parse":
-            self.completer.SetCompleteFunction("currentFilesAndFolders")
             filename = input("Parse> File path : ")
             self.promptFiles.append(filename)
             self.Run()
@@ -41,6 +43,7 @@ class CLIParse:
         if exists(fastPath) == False:
             print("Parse> There is no folder named 'prompts'")
             return
+
         self.promptFiles = glob(join(fastPath, "*.md"))
         print(f"Parse> {len(self.promptFiles)} files are found ...")
         self.Run()
@@ -132,18 +135,11 @@ class CLIParse:
     Preprocess the line that get from markdown file
     """
 
-    def Preprocess(self, line):
+    def Preprocess(self, line: str):
         """
         Check mostly used starting syntax
         """
-        if line.startswith("- [ ] ") or line.startswith("- [x] "):
-            line = line[6:]
-        elif line.startswith("-[ ] ") or line.startswith("-[x] "):
-            line = line[5:]
-        elif line.startswith("-[] "):
-            line = line[4:]
-        elif line.startswith("- ") or line.startswith("> "):
-            line = line[2:]
+        sub(r"[->]?\s*\[?\s*x?\]?\s*", "", line)
 
         """
         Check for newline operator
