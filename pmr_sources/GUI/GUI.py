@@ -20,7 +20,7 @@ from .EvaluateTab import EvaluateTab
 from .GenerateTab import GenerateTab
 
 
-class GUI:
+class MainGUI:
     window = None
 
     tabview = None

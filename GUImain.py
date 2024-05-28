@@ -1,5 +1,5 @@
-from GUI.GUI import GUI
+from pmr_sources.GUI.GUI import MainGUI
 
 if __name__ == "__main__":
-    gui = GUI()
+    gui = MainGUI()
     gui.Loop()
