@@ -1,6 +1,8 @@
 from os import getcwd
-from os.path import exists
+from os.path import exists, join
 from threading import Thread
+
+from pmr_sources.Utility import GetFilenameWithExtension, EnhancePreprocess
 
 
 class DatasetTab:
@@ -122,15 +124,13 @@ class DatasetTab:
         completedLink = 0
         totalLinks = len(promptLinks)
 
-        if positiveFilename.endswith(".txt") is False:
-            positiveFilename = f"dataset/{positiveFilename}.txt"
-        else:
-            positiveFilename = f"dataset/{positiveFilename}"
+        positiveFilename = GetFilenameWithExtension(
+            join("dataset", positiveFilename), "txt"
+        )
 
-        if negativeFilename.endswith(".txt") is False:
-            negativeFilename = f"dataset/{negativeFilename}.txt"
-        else:
-            negativeFilename = f"dataset/{negativeFilename}"
+        negativeFilename = GetFilenameWithExtension(
+            join("dataset", negativeFilename), "txt"
+        )
 
         if exists(positiveFilename) == True:
             positiveFile = open(positiveFilename, "r")
@@ -150,12 +150,12 @@ class DatasetTab:
             )
 
             if len(prompts) == 2:
-                positiveLine = self.Preprocess(prompts[0].text)
-                negativeLine = self.Preprocess(prompts[1].text)
+                positiveLine = EnhancePreprocess(prompts[0].text)
+                negativeLine = EnhancePreprocess(prompts[1].text)
                 positivePrompts.append(f"{positiveLine}\n")
                 negativePrompts.append(f"{negativeLine}\n")
             elif len(prompts) == 1:
-                positiveLine = self.Preprocess(prompts[0].text)
+                positiveLine = EnhancePreprocess(prompts[0].text)
                 positivePrompts.append(f"{positiveLine}\n")
 
             completedLink = completedLink + 1
@@ -170,7 +170,7 @@ class DatasetTab:
             positivePrompts.remove("\n")
             negativePrompts.remove("\n")
         except:
-            print("Allrighto")
+            pass
 
         positiveFile = open(positiveFilename, "w")
         negativeFile = open(negativeFilename, "w")
@@ -182,17 +182,6 @@ class DatasetTab:
         negativeFile.close()
 
         self.infoLabel.configure(text="DONE !!!")
-
-    def Preprocess(self, line):
-        from re import sub
-
-        tempLine = line.replace("\n", "")
-        tempLine = sub(r"<.+?>", "", tempLine)
-        tempLine = tempLine.replace("  ", " ")
-        tempLine = tempLine.replace("\t", " ")
-        if tempLine.startswith(" "):
-            tempLine = tempLine[1:]
-        return tempLine
 
     def Refresh(self):
         self.parentWindow.update()
