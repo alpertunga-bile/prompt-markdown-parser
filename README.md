@@ -59,12 +59,11 @@ https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/ec9826
 
 ## Linux
 - Try ```python start.py``` command. If it fails, run these commands
-<pre>
+```bash
 python -m venv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
-deactivate
-</pre>
+```
 
 # CLI Application
 
@@ -217,8 +216,8 @@ https://github.com/alpertunga-bile/prompt-markdown-parser/assets/76731692/05bfd9
 
 ## Generator Examples
 - Some typo fixes are done for the generated prompts.
-- female_positive_gpt2-75_model is used for generator examples. Used model can be found [here](https://drive.google.com/drive/folders/1c21kMH6FTaia5C8239okL3Q0wJnnWc1N?usp=share_link).
-- Model is trained with 75 epochs and 1 batch size.
+- female_positive_gpt2-75_model is used for generator examples. Pretrained generator models can be found [here](https://drive.google.com/drive/folders/1c21kMH6FTaia5C8239okL3Q0wJnnWc1N?usp=share_link).
+- The model is trained with 75 epochs and 1 batch size.
 
 ### Example 1
 - Model Name : gpt2
