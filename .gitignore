@@ -164,3 +164,4 @@ dataset/
 example/*.txt
 CLI/__pycache__
 GUI/__pycache__
+.vscode/
